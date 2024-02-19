@@ -1,0 +1,24 @@
+{
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.fixAll": "explicit"
+    },
+    "eslint.validate": [
+      "typescript",
+      "vue"
+    ],
+    "eslint.enable": true,
+    "eslint.run": "onSave",
+    "editor.tabSize": 2,
+    "prettier.enable": true,
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      "package-lock.json": true,
+      "node_modules": true
+    }
+}
