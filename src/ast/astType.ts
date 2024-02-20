@@ -1,3 +1,35 @@
+export type TypeNode =
+    | BasicTypeNode
+    | LiteralTypeNode
+    | FunctionTypeNode
+    | UnionTypeNode
+    | ArrayTypeNode
+    | TupleTypeNode
+    | TypeReferenceNode
+    | TypeLiteralNode
+
+export type TypePtr = TypeNode | undefined;
+
+export enum TypeNodeKind {
+    Basic,
+    Literal,
+    Function,
+    Union,
+    Array,
+    Tuple,
+    TypeReference,
+    TypeLiteral,
+}
+
+export enum BasicType {
+    dbool,
+    dint,
+    dfloat,
+    dstring,
+    dvoid,
+    dany,
+}
+
 export interface TypeParameter {
     name: string;
     constraint?: TypeReferenceNode
@@ -5,24 +37,6 @@ export interface TypeParameter {
 
 export interface TypeParameters {
     typeParameters?: TypeParameter[];
-}
-
-export enum TypeNodeKind {
-    Basic,
-    Literal,
-    Function,
-    Union,
-    TypeReference,
-    TypeLiteral,
-}
-
-export enum BasicType {
-    Boolean,
-    Integer,
-    Float,
-    String,
-    Void,
-    Any,
 }
 
 export interface BasicTypeNode {
@@ -38,6 +52,7 @@ export interface LiteralTypeNode {
 export interface ParameterType {
     name: string;
     type: TypeNode;
+    optional: boolean;
 }
 
 export interface PropertyType extends ParameterType {}
@@ -53,6 +68,16 @@ export interface UnionTypeNode {
     value: Exclude<TypeNode, UnionTypeNode>[];
 }
 
+export interface ArrayTypeNode {
+    kind: TypeNodeKind.Array;
+    elementType: TypeNode;
+}
+
+export interface TupleTypeNode {
+    kind: TypeNodeKind.Tuple;
+    elements: TypeNode[];
+}
+
 export interface TypeReferenceNode {
     kind: TypeNodeKind.TypeReference;
     members?: TypeNode[];
@@ -63,13 +88,3 @@ export interface TypeLiteralNode {
     kind: TypeNodeKind.TypeLiteral;
     members: PropertyType[];
 }
-
-export type TypeNode =
-    | BasicTypeNode
-    | LiteralTypeNode
-    | FunctionTypeNode
-    | UnionTypeNode
-    | TypeReferenceNode
-    | TypeLiteralNode
-
-export type TypePtr = TypeNode | undefined;

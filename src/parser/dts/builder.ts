@@ -27,12 +27,14 @@ import {
     TypeLiteralNode,
     LiteralTypeNode,
     TypeParameter,
+    ArrayTypeNode,
+    TupleTypeNode,
 } from "../../ast/astType";
 import { DocFlags } from "../../ast/docFlag";
-import { ASTUtil } from "../../util/astUtil";
+import { ASTNodeClassifier, ASTUtil } from "../../util/astUtil";
 import { SingletonProperty } from "../../util/classDecorator";
 
-import ts, { NodeFlags } from "typescript";
+import ts from "typescript";
 
 export class TypeParameterBuilder {
     @SingletonProperty
@@ -77,6 +79,7 @@ export class TypeBuilder {
         return {
             name: node.name.getText(),
             type: this.build(node.type!),
+            optional: !!node.questionToken,
         };
     }
 
@@ -129,6 +132,20 @@ export class TypeBuilder {
         };
     }
 
+    public buildArray(node: ts.ArrayTypeNode): ArrayTypeNode {
+        return {
+            kind: TypeNodeKind.Array,
+            elementType: this.build(node.elementType),
+        };
+    }
+
+    public buildTuple(node: ts.TupleTypeNode): TupleTypeNode {
+        return {
+            kind: TypeNodeKind.Tuple,
+            elements: node.elements.map((type) => this.build(type)),
+        };
+    }
+
     public buildTypeLiteral(node: ts.TypeLiteralNode): TypeLiteralNode {
         return {
             kind: TypeNodeKind.TypeLiteral,
@@ -136,6 +153,7 @@ export class TypeBuilder {
                 return {
                     name: member.name!.getText(),
                     type: this.build((<ts.PropertySignature>member).type!),
+                    optional: !!(<ts.PropertySignature>member).questionToken,
                 };
             }),
         };
@@ -151,6 +169,10 @@ export class TypeBuilder {
             return this.buildFunction(<ts.FunctionTypeNode>node);
         case ts.SyntaxKind.TypeLiteral:
             return this.buildTypeLiteral(<ts.TypeLiteralNode>node);
+        case ts.SyntaxKind.ArrayType:
+            return this.buildArray(<ts.ArrayTypeNode>node);
+        case ts.SyntaxKind.TupleType:
+            return this.buildTuple(<ts.TupleTypeNode>node);
         case ts.SyntaxKind.LiteralType:
             return this.buildLiteralType(<ts.LiteralTypeNode>node);
         default:
@@ -319,7 +341,7 @@ export class ASTNodeBuilder {
                     kind: ASTNodeKind.Constructor,
                     name: "constructor",
                     docFlags: DocFlagParser.instance.getDocFlagsByNode(
-                        node,
+                        member,
                         this.sourceFile,
                     ),
                     parameters: (<ts.ConstructorDeclaration>(
@@ -413,7 +435,7 @@ export class ASTNodeBuilder {
 
     public buildAST(node: ts.Node): ASTNode {
         const result = this.build(node);
-        if (result == null || ASTUtil.instance.isASTNodeArray(result))
+        if (result == null || ASTNodeClassifier.instance.isASTNodeArray(result))
             throw new Error("Not a tree");
         return result;
     }

@@ -38,4 +38,8 @@ export class DocFlagUtil {
     public getFunctionLikeDefault(): string[] {
         return [DocFlagKind.Text, DocFlagKind.Params, DocFlagKind.Returns];
     }
+
+    public getConstructorDefault(): string[] {
+        return [DocFlagKind.Text, DocFlagKind.Params];
+    }
 }

@@ -23,7 +23,9 @@ export class DocFlagParser {
         const docFlags: DocFlags = { enable: true, flags: [] };
         const jsDocTag = ts.getJSDocTags(node);
 
-        if (ts.isFunctionLike(node))
+        if (node.kind == ts.SyntaxKind.Constructor)
+            docFlags.flags = DocFlagUtil.instance.getConstructorDefault();
+        else if (ts.isFunctionLike(node))
             docFlags.flags = DocFlagUtil.instance.getFunctionLikeDefault();
         else
             docFlags.flags = DocFlagUtil.instance.getNormalDefault();
@@ -33,11 +35,11 @@ export class DocFlagParser {
 
         for (const tag of jsDocTag) {
             const name = tag.tagName.text;
-            if (name === "disable") {
-                docFlags.enable = false;
-                docFlags.flags = [];
-                return docFlags;
-            }
+            if (name === "disable")
+                return {
+                    enable: false,
+                    flags: []
+                };
             if (!DocFlagUtil.instance.isDefined(name))
                 console.warn(
                     `This parser does not allow use '${name}', at ${this.getPostion(tag, sourceFile)}`,

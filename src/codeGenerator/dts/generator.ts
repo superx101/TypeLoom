@@ -29,9 +29,10 @@ import {
     VarNode,
 } from "../../ast/astNode";
 import { TypeParameter } from "../../ast/astType";
+import { ASTNodeClassifier, ASTUtil } from "../../util/astUtil";
 import { SingletonProperty } from "../../util/classDecorator";
-import { Translator } from "../../util/i18nUtil";
-import { Code, Commentable, Statement } from "../baseCode";
+import { Translator } from "../../util/i18n/i18nUtil";
+import { Commentable } from "../baseCode";
 import { CodeGenerator } from "../baseGenerator";
 
 export class TypeParameterUtil {
@@ -55,6 +56,43 @@ export class DTSGenerator extends CodeGenerator {
         super();
     }
 
+    protected modifierPriority: { [key: string]: number } = {
+        abstract: 1,
+        static: 2,
+        readonly: 3,
+    };
+
+    protected getDTSComment(node: ASTNode): DTSComment {
+        return new DTSComment(node, this.tr);
+    }
+
+    public getModifiersText(node: ASTNode): string {
+        // TODO async
+        const modifiers: string[] = [];
+        if (ASTNodeClassifier.instance.isMethodNode(node)) {
+            if (node.static)
+                modifiers.push("static");
+        }
+        else if (ASTNodeClassifier.instance.isPropertyNode(node)) {
+            if (node.static)
+                modifiers.push("static");
+            if (node.readonly)
+                modifiers.push("readonly");
+        }
+        else {
+            return "";
+        }
+
+        return modifiers
+            .slice()
+            .sort((a, b) => {
+                const priorityA = this.modifierPriority[a];
+                const priorityB = this.modifierPriority[b];
+                return priorityA - priorityB;
+            })
+            .join(" ");
+    }
+
     public getTypeParameters(typeParameters?: TypeParameter[]) {
         if (!typeParameters || typeParameters.length == 0)
             return "";
@@ -64,10 +102,6 @@ export class DTSGenerator extends CodeGenerator {
             return tp.name;
         });
         return `<${texts.join(", ")}>`;
-    }
-
-    protected getDTSComment(node: ASTNode) {
-        return new DTSComment(node, this.tr);
     }
 
     protected getPropertiesAndMethods(node: ClassNode | InterfaceNode): {
@@ -80,8 +114,12 @@ export class DTSGenerator extends CodeGenerator {
         for (const property of node.properties)
             properties.push(
                 new DTSProperty(
-                    property.name,
-                    new DTSType(property.type),
+                    {
+                        name: property.name,
+                        type: new DTSType(property.type),
+                        modifiersText: this.getModifiersText(property),
+                        isOptional: property.optional,
+                    },
                     this.getDTSComment(property),
                 ),
             );
@@ -97,12 +135,16 @@ export class DTSGenerator extends CodeGenerator {
             else
                 methods.push(
                     new DTSMethod(
-                        method.name,
-                        parameters,
-                        new DTSType(method.returnType),
-                        TypeParameterUtil.instance.getTypeParametersText(
-                            method.typeParameters,
-                        ),
+                        {
+                            name: method.name,
+                            parameters,
+                            returnType: new DTSType(method.returnType),
+                            typeParameterText:
+                                TypeParameterUtil.instance.getTypeParametersText(
+                                    method.typeParameters,
+                                ),
+                            modifiersText: this.getModifiersText(method),
+                        },
                         this.getDTSComment(method),
                     ),
                 );
@@ -111,7 +153,11 @@ export class DTSGenerator extends CodeGenerator {
     }
 
     public createVar(node: VarNode): DTSVar {
-        return new DTSVar(node.name, new DTSType(node.type), node.const);
+        return new DTSVar({
+            name: node.name,
+            type: new DTSType(node.type),
+            isConst: node.const,
+        });
     }
 
     public createEnum(node: EnumNode): DTSEnum {
@@ -120,42 +166,47 @@ export class DTSGenerator extends CodeGenerator {
 
     public createClass(node: ClassNode): DTSClass {
         const { properties, methods } = this.getPropertiesAndMethods(node);
-        return new DTSClass(
-            node.name,
+        return new DTSClass({
+            name: node.name,
             properties,
             methods,
-            TypeParameterUtil.instance.getTypeParametersText(
+            typeParameterText: TypeParameterUtil.instance.getTypeParametersText(
                 node.typeParameters,
             ),
-        );
+        });
     }
 
     public createInterface(node: InterfaceNode): DTSInterface {
         const { properties, methods } = this.getPropertiesAndMethods(node);
-        return new DTSInterface(
-            node.name,
+        return new DTSInterface({
+            name: node.name,
             properties,
             methods,
-            TypeParameterUtil.instance.getTypeParametersText(
+            typeParameterText: TypeParameterUtil.instance.getTypeParametersText(
                 node.typeParameters,
             ),
-        );
+        });
     }
 
     public createFunctionCode(node: FunctionNode): DTSFunction {
         const parameters: DTSParameter[] = [];
         for (const parameter of node.parameters)
             parameters.push(
-                new DTSParameter(parameter.name, new DTSType(parameter.type)),
+                new DTSParameter(
+                    parameter.name,
+                    new DTSType(parameter.type),
+                    parameter.optional,
+                ),
             );
-        return new DTSFunction(
-            node.name,
+        return new DTSFunction({
+            name: node.name,
             parameters,
-            new DTSType(node.returnType),
-            TypeParameterUtil.instance.getTypeParametersText(
+            returnType: new DTSType(node.returnType),
+            typeParameterText: TypeParameterUtil.instance.getTypeParametersText(
                 node.typeParameters,
             ),
-        );
+            modifiersText: this.getModifiersText(node),
+        });
     }
 
     public createNamespaceCode(node: NamespaceNode): DTSNamespace {
@@ -197,7 +248,10 @@ export class DTSGenerator extends CodeGenerator {
             code = this.createRootCode(<RootNode>node);
             break;
         default:
-            throw new Error("TODO");
+            throw new Error(
+                "can not create node:" +
+                        ASTUtil.instance.getString(node, 2),
+            );
         }
         if (code instanceof Commentable)
             code.setComment(this.getDTSComment(node));

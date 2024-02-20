@@ -11,11 +11,28 @@ import {
     TypeNode,
     TypeNodeKind,
     UnionTypeNode,
+    ArrayTypeNode,
+    TupleTypeNode,
 } from "../../ast/astType";
-import { Translator } from "../../util/i18nUtil";
+import { Translator } from "../../util/i18n/i18nUtil";
 import { Code, CodeBlock, CodeUtil, Statement } from "../baseCode";
 
 export type DTSCode = DTSBlock | DTSStatement;
+
+export interface FunctionLikeDefinition {
+    name: string;
+    parameters: DTSParameter[];
+    returnType: DTSType;
+    typeParameterText: string;
+    modifiersText: string;
+}
+
+export interface ClassLikeDefinition {
+    name: string;
+    properties: DTSProperty[];
+    methods: DTSMethod[];
+    typeParameterText: string;
+}
 
 export class DTSComment implements Code {
     protected readonly startText: string = "/**";
@@ -57,16 +74,16 @@ export class DTSType implements Code {
 
     public buildBasic(type: BasicTypeNode): string {
         switch (type.value) {
-        case BasicType.Boolean:
+        case BasicType.dbool:
             return "boolean";
-        case BasicType.Float:
-        case BasicType.Integer:
+        case BasicType.dfloat:
+        case BasicType.dint:
             return "number";
-        case BasicType.String:
+        case BasicType.dstring:
             return "string";
-        case BasicType.Void:
+        case BasicType.dvoid:
             return "void";
-        case BasicType.Any:
+        case BasicType.dany:
         default:
             return "any";
         }
@@ -74,7 +91,10 @@ export class DTSType implements Code {
 
     public buildFunction(type: FunctionTypeNode): string {
         const parametersText = type.parameters
-            .map((p) => this.build(p.type))
+            .map(
+                (p) =>
+                    `${p.name}${p.optional ? "?" : ""}: ${this.build(p.type)}`,
+            )
             .join(", ");
         const typeParameterText =
             TypeParameterUtil.instance.getTypeParametersText(
@@ -94,9 +114,17 @@ export class DTSType implements Code {
         return type.value.map((t) => this.build(t)).join(" | ");
     }
 
+    public buildArray(type: ArrayTypeNode): string {
+        return this.build(type.elementType) + "[]";
+    }
+
+    public buildTuple(type: TupleTypeNode): string {
+        return `[${type.elements.map((t) => this.build(t)).join(", ")}]`;
+    }
+
     public buildTypeLiteral(type: TypeLiteralNode): string {
         const properties = type.members.map((m) => {
-            return `${m.name}: ${this.build(m.type)}`;
+            return `${m.name}${m.optional ? "?" : ""}: ${this.build(m.type)}`;
         });
         return `{ ${properties.join("; ")} }`;
     }
@@ -115,6 +143,10 @@ export class DTSType implements Code {
             return this.buildReference(type);
         case TypeNodeKind.Union:
             return this.buildUnion(type);
+        case TypeNodeKind.Array:
+            return this.buildArray(type);
+        case TypeNodeKind.Tuple:
+            return this.buildTuple(type);
         case TypeNodeKind.TypeLiteral:
             return this.buildTypeLiteral(type);
         default:
@@ -156,19 +188,38 @@ export class DTSTypedDeclaration extends DTSStatement {
 
 export class DTSVar extends DTSTypedDeclaration {
     constructor(
-        name: string,
-        type: DTSType,
-        isConst: boolean = false,
+        definition: {
+            name: string;
+            type: DTSType;
+            isConst: boolean;
+        },
         comment?: DTSComment,
     ) {
-        super(`${isConst ? "const" : "let"} ${name}`, type);
+        super(
+            `${definition.isConst ? "const" : "let"} ${definition.name}`,
+            definition.type,
+        );
         this.comment = comment;
     }
 }
 
 export class DTSProperty extends DTSTypedDeclaration {
-    constructor(name: string, type: DTSType, comment?: DTSComment) {
-        super(name, type);
+    constructor(
+        definition: {
+            name: string;
+            type: DTSType;
+            modifiersText: string;
+            isOptional: boolean;
+        },
+        comment?: DTSComment,
+    ) {
+        if (definition.modifiersText !== "")
+            definition.modifiersText += " ";
+        const optionalText = definition.isOptional ? "?" : "";
+        super(
+            definition.modifiersText + definition.name + optionalText,
+            definition.type,
+        );
         this.comment = comment;
     }
 }
@@ -177,10 +228,12 @@ export class DTSParameter implements Code {
     constructor(
         protected name: string,
         protected type: DTSType,
+        protected isOptional: boolean = false,
     ) {}
 
     public toString(depth?: number | undefined): string {
-        return `${this.name}: ${this.type.toString()}`;
+        const optionalText = this.isOptional ? "?" : "";
+        return `${this.name}${optionalText}: ${this.type.toString()}`;
     }
 }
 
@@ -192,32 +245,32 @@ export class DTSConstructor extends DTSStatement {
 }
 
 export class DTSFunction extends DTSTypedDeclaration {
-    constructor(
-        name: string,
-        parameters: DTSParameter[],
-        returnType: DTSType,
-        typeParameterText: string,
-        comment?: DTSComment,
-    ) {
-        const parameterText = parameters.map((c) => c.toString()).join(", ");
+    constructor(definition: FunctionLikeDefinition, comment?: DTSComment) {
+        const parameterText = definition.parameters
+            .map((c) => c.toString())
+            .join(", ");
         super(
-            `function ${name}${typeParameterText}(${parameterText})`,
-            returnType,
+            `function ${definition.name}${definition.typeParameterText}(${parameterText})`,
+            definition.returnType,
         );
         this.comment = comment;
     }
 }
 
 export class DTSMethod extends DTSTypedDeclaration {
-    constructor(
-        name: string,
-        parameters: DTSParameter[],
-        returnType: DTSType,
-        typeParameterText: string,
-        comment?: DTSComment,
-    ) {
-        const parameterText = parameters.map((c) => c.toString()).join(", ");
-        super(`${typeParameterText}${name}(${parameterText})`, returnType);
+    constructor(definition: FunctionLikeDefinition, comment?: DTSComment) {
+        const parameterText = definition.parameters
+            .map((c) => c.toString())
+            .join(", ");
+        if (definition.modifiersText !== "")
+            definition.modifiersText += " ";
+        super(
+            definition.modifiersText +
+                definition.name +
+                definition.typeParameterText +
+                `(${parameterText})`,
+            definition.returnType,
+        );
         this.comment = comment;
     }
 }
@@ -260,32 +313,26 @@ export class DTSEnum extends DTSBlock {
 }
 
 export class DTSClass extends DTSBlock {
-    constructor(
-        name: string,
-        properties: DTSProperty[],
-        methods: DTSMethod[],
-        typeParameterText: string,
-        comment?: DTSComment,
-    ) {
+    constructor(definition: ClassLikeDefinition, comment?: DTSComment) {
         super(
-            new Statement(["class", name + typeParameterText]),
-            [...properties, ...methods],
+            new Statement([
+                "class",
+                definition.name + definition.typeParameterText,
+            ]),
+            [...definition.properties, ...definition.methods],
             comment,
         );
     }
 }
 
 export class DTSInterface extends DTSBlock {
-    constructor(
-        name: string,
-        properties: DTSProperty[],
-        methods: DTSMethod[],
-        typeParameterText: string,
-        comment?: DTSComment,
-    ) {
+    constructor(definition: ClassLikeDefinition, comment?: DTSComment) {
         super(
-            new Statement(["interface", name + typeParameterText]),
-            [...properties, ...methods],
+            new Statement([
+                "interface",
+                definition.name + definition.typeParameterText,
+            ]),
+            [...definition.properties, ...definition.methods],
             comment,
         );
     }

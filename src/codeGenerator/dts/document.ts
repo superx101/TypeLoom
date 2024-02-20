@@ -1,8 +1,8 @@
 import { ASTNode, FunctionLikeNode } from "../../ast/astNode";
 import { DocFlagKind } from "../../ast/docFlag";
-import { ASTUtil } from "../../util/astUtil";
+import { ASTNodeClassifier, ASTUtil } from "../../util/astUtil";
 import { SingletonProperty } from "../../util/classDecorator";
-import { I18nUtil } from "../../util/i18nUtil";
+import { I18nUtil } from "../../util/i18n/i18nUtil";
 
 export type DocRecord = { key: string; prefix: string };
 
@@ -71,7 +71,7 @@ export class ParamFlagStrategy implements FlagStrategy {
         baseKey: string,
         _tagName: string,
     ): DocRecord[] {
-        if (!ASTUtil.instance.isFunctionLikeNode(node))
+        if (!ASTNodeClassifier.instance.isFunctionLikeNode(node))
             throw new WrongTagError(
                 `'${node.name}' is not functionLikeNode, do not allow use 'params' tag`,
             );
@@ -93,7 +93,7 @@ export class ReturnFlagStrategy extends SimpleFlagStrategy {
         baseKey: string,
         _tagName: string,
     ): DocRecord[] {
-        if (!ASTUtil.instance.isFunctionLikeNode(node))
+        if (!ASTNodeClassifier.instance.isFunctionLikeNode(node))
             throw new WrongTagError(
                 `'${node.name}' is not functionLikeNode, do not allow use 'returns' tag`,
             );

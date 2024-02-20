@@ -1,7 +1,7 @@
 import {
     ASTNode,
 } from "../ast/astNode";
-import { Translator } from "../util/i18nUtil";
+import { Translator } from "../util/i18n/i18nUtil";
 
 export abstract class CodeGenerator {
     protected abstract tr: Translator;

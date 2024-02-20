@@ -1,8 +1,8 @@
 import { DTSGenerator } from "./codeGenerator/dts/generator";
 import { DTSParser } from "./parser/dts/parser";
 import { ASTUtil } from "./util/astUtil";
-import { Translator } from "./util/i18nUtil";
-import { USHandleStrategy } from "./util/i18nUtils/enHandleStrategy";
+import { Translator } from "./util/i18n/i18nUtil";
+import { USHandleStrategy } from "./util/i18n/langFormatStrategyImpl";
 
 import ts from "typescript";
 
@@ -15,7 +15,7 @@ function main() {
     });
 
     const ast = parser.parse("../example/test.d.ts");
-    fs.writeFileSync("../example/test.json", ASTUtil.instance.toString(ast, 2));
+    fs.writeFileSync("../example/test.json", ASTUtil.instance.getString(ast, 2));
     console.log("../example/test.json");
 
     const generator = new DTSGenerator(new Translator({}, new USHandleStrategy()));
