@@ -9,6 +9,7 @@ import {
     MethodNode,
     ModuleLikeNode,
     PropertyNode,
+    RootNode,
     VarLikeNode,
 } from "../ast/astNode";
 import {
@@ -40,6 +41,10 @@ export class ASTNodeClassifier {
 
     public isPropertyNode(node: ASTNode): node is PropertyNode {
         return node.kind === ASTNodeKind.Property;
+    }
+
+    public isRootNode(node: ASTNode): node is RootNode {
+        return node.kind === ASTNodeKind.Root;
     }
 
     public isASTNodeArray(node: ASTNode | ASTNode[]): node is ASTNode[] {
@@ -104,6 +109,7 @@ export class ASTNodeVisitor {
             );
             break;
         case ASTNodeKind.Namespace:
+        case ASTNodeKind.SourceFile:
         case ASTNodeKind.Root:
             (<ModuleLikeNode>node).children.forEach((c) =>
                 this.visitNode(node, c, view),

@@ -1,9 +1,13 @@
 import { Data, SingletonProperty } from "../util/classDecorator";
 
 export class CodeCofig {
-    public static indentSize: number = 4;
-    public static newline: string = "\r\n";
-    public static commentMaxLenght: number = 80;
+    @SingletonProperty
+    public static readonly instance: CodeCofig;
+
+    public readonly supportedLanguages: string[] = ["ts"];
+    public indentSize: number = 4;
+    public newline: string = "\r\n";
+    public commentMaxLenght: number = 80;
 }
 
 export interface StringOptions {
@@ -12,7 +16,7 @@ export interface StringOptions {
 }
 
 export interface Code {
-    toString(depth?: number): string;
+    renderCode(depth?: number): string;
 }
 
 @Data
@@ -40,15 +44,15 @@ export class CodeUtil {
             if (str == null || str === "")
                 continue;
             const line = depth ? indent + str : str;
-            result += line + CodeCofig.newline;
+            result += line + CodeCofig.instance.newline;
         }
         if (!newLine)
-            result = result.slice(0, -CodeCofig.newline.length);
+            result = result.slice(0, -CodeCofig.instance.newline.length);
         return result;
     }
 
     public getIndent(depth?: number) {
-        return " ".repeat(CodeCofig.indentSize).repeat(depth || 0);
+        return " ".repeat(CodeCofig.instance.indentSize).repeat(depth || 0);
     }
 }
 
@@ -60,17 +64,17 @@ export class Statement extends Commentable implements Code {
         super(comment);
     }
 
-    public itemsToString() {
-        return this.items.join(" ");
+    public randerItems() {
+        return this.items.filter((i) => i != "").join(" ");
     }
 
-    public toString(
+    public renderCode(
         depth?: number,
         options: StringOptions = { prefix: "", suffix: "" },
     ): string {
         const indent = CodeUtil.instance.getIndent(depth);
-        const contentText = this.itemsToString();
-        const commentText = this.comment?.toString(depth);
+        const contentText = this.randerItems();
+        const commentText = this.comment?.renderCode(depth);
         return CodeUtil.instance.arrToLines([
             commentText,
             indent + options.prefix + contentText + options.suffix,
@@ -92,26 +96,35 @@ export class CodeBlock extends Commentable implements Code {
 
     protected getContentsString(depth?: number): string {
         return this.contents
-            .map((s) => s.toString(depth))
+            .map((s) => s.renderCode(depth))
             .join("")
-            .slice(0, -CodeCofig.newline.length);
+            .slice(0, -CodeCofig.instance.newline.length);
     }
 
-    public toString(
+    public renderCode(
         depth?: number,
         options: StringOptions = { prefix: "", suffix: "" },
     ): string {
         if (depth == null || depth < 0)
             return this.getContentsString(0);
+
         const indent = CodeUtil.instance.getIndent(depth);
-        const contentWithIndent =
-            this.header?.toString(depth, {
-                prefix: options.prefix,
-                suffix: "" + this.startText,
-            }) + this.getContentsString(depth + 1);
+        const headerText = this.header?.renderCode(depth, {
+            prefix: options.prefix,
+            suffix: "" + this.startText,
+        }).slice(0, -CodeCofig.instance.newline.length);
+        const contentText = this.getContentsString(depth + 1);
+        const commentText = this.comment?.renderCode(depth);
+
+        if (contentText === "")
+            return CodeUtil.instance.arrToLines([
+                commentText,
+                headerText + this.endText,
+            ]);
         return CodeUtil.instance.arrToLines([
-            this.comment?.toString(depth),
-            contentWithIndent,
+            commentText,
+            headerText,
+            contentText,
             indent + this.endText,
         ]);
     }

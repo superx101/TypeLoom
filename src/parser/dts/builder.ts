@@ -1,4 +1,4 @@
-import { DocFlagParser } from "./docBuilder";
+import { DocFlagParser } from "./flagBuilder";
 
 import {
     ASTNode,
@@ -13,6 +13,7 @@ import {
     ParameterNode,
     PropertyNode,
     RootNode,
+    SourceFileNode,
     VarNode,
 } from "../../ast/astNode";
 import {
@@ -35,6 +36,8 @@ import { ASTNodeClassifier, ASTUtil } from "../../util/astUtil";
 import { SingletonProperty } from "../../util/classDecorator";
 
 import ts from "typescript";
+
+import path from "path";
 
 export class TypeParameterBuilder {
     @SingletonProperty
@@ -194,7 +197,18 @@ export class TypeBuilder {
 }
 
 export class ASTNodeBuilder {
-    constructor(private sourceFile: ts.SourceFile) {}
+    protected relativePath: string;
+
+    constructor(
+        private sourceFile: ts.SourceFile,
+        mainPath: string,
+    ) {
+        this.relativePath = path.relative(
+            path.dirname(mainPath),
+            sourceFile.fileName,
+        );
+        console.log(this.relativePath);
+    }
 
     public getModelLikeChildren(statements: ts.NodeArray<ts.Statement>) {
         const children: ASTNode[] = [];
@@ -345,8 +359,8 @@ export class ASTNodeBuilder {
                         );
                 break;
             case ts.SyntaxKind.ImplementsKeyword:
-                classImplements.concat(
-                    clause.types.map((express) =>
+                classImplements.push(
+                    ...clause.types.map((express) =>
                         TypeBuilder.instance.createTypeReferenceByExpressionWithTypeArguments(
                             express,
                         ),
@@ -403,7 +417,7 @@ export class ASTNodeBuilder {
         const methods: MethodNode[] = [];
         const interfaceExtends: TypeReferenceNode[] = [];
 
-        // set implements
+        // set extends
         node.heritageClauses?.forEach((clause) => {
             interfaceExtends.concat(
                 clause.types.map((express) =>
@@ -448,14 +462,6 @@ export class ASTNodeBuilder {
         };
     }
 
-    public buildRoot(node: ts.SourceFile): RootNode {
-        return {
-            kind: ASTNodeKind.Root,
-            name: "",
-            children: this.getModelLikeChildren(node.statements),
-        };
-    }
-
     public build(node: ts.Node): ASTNode | ASTNode[] | null {
         switch (node.kind) {
         case ts.SyntaxKind.VariableStatement:
@@ -470,8 +476,6 @@ export class ASTNodeBuilder {
             return this.buildInterface(<ts.InterfaceDeclaration>node);
         case ts.SyntaxKind.ModuleDeclaration:
             return this.buildNamespace(<ts.NamespaceDeclaration>node);
-        case ts.SyntaxKind.SourceFile:
-            return this.buildRoot(<ts.SourceFile>node);
         case ts.SyntaxKind.TypeAliasDeclaration:
         case ts.SyntaxKind.EndOfFileToken:
             return null;
@@ -482,10 +486,16 @@ export class ASTNodeBuilder {
         }
     }
 
-    public buildAST(node: ts.Node): ASTNode {
-        const result = this.build(node);
-        if (result == null || ASTNodeClassifier.instance.isASTNodeArray(result))
-            throw new Error("Not a tree");
-        return result;
+    public buildSourceFile(node: ts.SourceFile): SourceFileNode {
+        const dirname = path.dirname(this.relativePath).replace(/\.\.\//g, "#");
+        const translatedDirname = dirname === "." ? "" : dirname + ".";
+        const name = translatedDirname + path.basename(this.relativePath).replace(/\./g, "-");
+
+        const sourceFileNode: SourceFileNode = {
+            kind: ASTNodeKind.SourceFile,
+            name,
+            children: this.getModelLikeChildren(node.statements),
+        };
+        return sourceFileNode;
     }
 }

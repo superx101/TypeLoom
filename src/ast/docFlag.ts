@@ -1,4 +1,8 @@
+import { ASTNode } from "./astNode";
+
 import { SingletonProperty } from "../util/classDecorator";
+
+export class WrongFlagError extends Error {}
 
 export interface DocFlags {
     enable: boolean;
@@ -17,9 +21,9 @@ export class DocFlagUtil {
     @SingletonProperty
     public static readonly instance: DocFlagUtil;
 
-    private flagSet = new Set<string>([...Object.values(DocFlagKind), "disable"]);
+    protected flagSet = new Set<string>([...Object.values(DocFlagKind), "disable"]);
 
-    private repeatableFlagSet = new Set<string>([
+    protected repeatableFlagSet = new Set<string>([
         DocFlagKind.Text
     ]);
 
@@ -41,5 +45,9 @@ export class DocFlagUtil {
 
     public getConstructorDefault(): string[] {
         return [DocFlagKind.Text, DocFlagKind.Params];
+    }
+
+    public getKeys(node: ASTNode) {
+
     }
 }

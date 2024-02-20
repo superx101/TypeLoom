@@ -44,7 +44,7 @@ export class DocFlagParser {
                 console.warn(
                     `This parser does not allow use '${name}', at ${this.getPostion(tag, sourceFile)}`,
                 );
-            if (!DocFlagUtil.instance.isRepeatable(name)) {
+            if (DocFlagUtil.instance.isRepeatable(name)) {
                 docFlags.flags.push(name);
                 continue;
             }

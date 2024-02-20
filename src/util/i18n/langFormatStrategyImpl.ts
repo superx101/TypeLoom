@@ -1,6 +1,14 @@
-import { LangFormatStrategy, LanguageCode } from "./i18nUtil";
+import {  LanguageCode } from "./i18nUtil";
 
-import { CodeCofig } from "../../codeGenerator/baseCode";
+import { CodeCofig } from "../../codeGenerator/code";
+
+export interface LangFormatStrategy {
+    /**
+     * Formatting the target language, e.g. line breaks
+     * @param lines
+     */
+    formatTexts(lines: string[]): string[];
+}
 
 export class LangFormatStrategyFactory {
     public static create(langCode: LanguageCode): LangFormatStrategy {
@@ -24,7 +32,7 @@ export class DefaultFormatStrategy implements LangFormatStrategy {
 export class USHandleStrategy implements LangFormatStrategy {
     public formatTexts(lines: string[]): string[] {
         const formattedLines: string[] = [];
-        const maxLineLength = CodeCofig.commentMaxLenght;
+        const maxLineLength = CodeCofig.instance.commentMaxLenght;
 
         for (const line of lines) {
             let currentLine = line.trim();

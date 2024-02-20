@@ -14,7 +14,8 @@ import {
     DTSType,
     DTSVar,
     DTSCode,
-} from "./code";
+    DTSSourceFile,
+} from "./dtsCode";
 
 import {
     ASTNode,
@@ -25,14 +26,15 @@ import {
     InterfaceNode,
     NamespaceNode,
     RootNode,
+    SourceFileNode,
     VarNode,
 } from "../../ast/astNode";
 import { TypeParameter } from "../../ast/astType";
 import { ASTNodeClassifier, ASTUtil } from "../../util/astUtil";
 import { SingletonProperty } from "../../util/classDecorator";
 import { Translator } from "../../util/i18n/i18nUtil";
-import { Commentable } from "../baseCode";
-import { CodeGenerator } from "../baseGenerator";
+import { Commentable } from "../code";
+import { CodeGenerator } from "../generator";
 
 export class TypeParameterUtil {
     @SingletonProperty
@@ -43,7 +45,7 @@ export class TypeParameterUtil {
             return "";
         const texts = typeParameters.map((tp) => {
             if (tp.constraint)
-                return `${tp.name} extends ${new DTSType(tp.constraint)}`;
+                return `${tp.name} extends ${new DTSType(tp.constraint).renderCode()}`;
             return tp.name;
         });
         return `<${texts.join(", ")}>`;
@@ -233,11 +235,18 @@ export class DTSGenerator extends CodeGenerator {
         return new DTSNamespace(node.name, contents);
     }
 
-    public createRootCode(node: RootNode): DTSBlock {
-        const contents: DTSCode[] = [];
+    public createRootCode(node: RootNode): DTSRoot {
+        const contents: DTSSourceFile[] = [];
         for (const child of (<RootNode>node).children)
-            contents.push(this.createCode(child));
+            contents.push(this.craeteSourceFileCode(child));
         return new DTSRoot(contents);
+    }
+
+    public craeteSourceFileCode(node: SourceFileNode): DTSSourceFile {
+        const contents: DTSCode[] = [];
+        for (const child of node.children)
+            contents.push(this.createCode(child));
+        return new DTSSourceFile(node.name, contents);
     }
 
     public createCode(node: ASTNode): DTSCode {
@@ -261,6 +270,9 @@ export class DTSGenerator extends CodeGenerator {
         case ASTNodeKind.Namespace:
             code = this.createNamespaceCode(<NamespaceNode>node);
             break;
+        case ASTNodeKind.SourceFile:
+            code = this.craeteSourceFileCode(<SourceFileNode>node);
+            break;
         case ASTNodeKind.Root:
             code = this.createRootCode(<RootNode>node);
             break;
@@ -277,6 +289,6 @@ export class DTSGenerator extends CodeGenerator {
 
     public getCodeText(node: ASTNode) {
         const code = this.createCode(node);
-        return code.toString(-1);
+        return code.renderCode(-1);
     }
 }

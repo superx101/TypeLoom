@@ -1,5 +1,5 @@
-import { DTSDocUtil } from "./document";
-import { TypeParameterUtil } from "./generator";
+import { DTSDocUtil } from "./dtsDocument";
+import { TypeParameterUtil } from "./dtsGenerator";
 
 import { ASTNode } from "../../ast/astNode";
 import {
@@ -15,7 +15,7 @@ import {
     TupleTypeNode,
 } from "../../ast/astType";
 import { Translator } from "../../util/i18n/i18nUtil";
-import { Code, CodeBlock, CodeUtil, Statement } from "../baseCode";
+import { Code, CodeBlock, CodeCofig, CodeUtil, Statement } from "../code";
 
 export type DTSCode = DTSBlock | DTSStatement;
 
@@ -44,8 +44,13 @@ export class DTSComment implements Code {
     public static getContents(node: ASTNode, tr: Translator): string[] {
         const docRecords = DTSDocUtil.instance.getRecord(node);
         const texts: string[] = [];
-        for (const record of docRecords)
-            texts.push(`${record.prefix} ${tr.tr(record.key)}`);
+        for (const record of docRecords) {
+            const value = tr.tr(record.key);
+            if (Array.isArray(value))
+                texts.push(`${record.prefix} `, ...value);
+            else
+                texts.push(`${record.prefix} ${value}`);
+        }
 
         return tr.formatTexts(texts);
     }
@@ -54,7 +59,7 @@ export class DTSComment implements Code {
         this.contents = DTSComment.getContents(node, tr);
     }
 
-    public toString(depth?: number): string {
+    public renderCode(depth?: number): string {
         const texts = this.contents.map((s) => this.prefix + s);
         if (texts.length == 0)
             return "";
@@ -155,7 +160,7 @@ export class DTSType implements Code {
         }
     }
 
-    public toString(depth?: number | undefined): string {
+    public renderCode(depth?: number | undefined): string {
         return this.typeText;
     }
 }
@@ -167,9 +172,9 @@ export class DTSStatement extends Statement {
         super(items, comment);
     }
 
-    public toString(depth?: number): string {
+    public renderCode(depth?: number): string {
         const prefix = depth == null || depth <= 0 ? "declare " : "";
-        return super.toString(depth, { prefix, suffix: this.suffix });
+        return super.renderCode(depth, { prefix, suffix: this.suffix });
     }
 }
 
@@ -183,7 +188,7 @@ export class DTSCommaStatement extends DTSStatement {
 
 export class DTSTypedDeclaration extends DTSStatement {
     constructor(prefix: string, type: DTSType) {
-        super([prefix + ":", type.toString()]);
+        super([prefix + ":", type.renderCode()]);
     }
 }
 
@@ -232,15 +237,15 @@ export class DTSParameter implements Code {
         protected isOptional: boolean = false,
     ) {}
 
-    public toString(depth?: number | undefined): string {
+    public renderCode(depth?: number | undefined): string {
         const optionalText = this.isOptional ? "?" : "";
-        return `${this.name}${optionalText}: ${this.type.toString()}`;
+        return `${this.name}${optionalText}: ${this.type.renderCode()}`;
     }
 }
 
 export class DTSConstructor extends DTSStatement {
     constructor(parameters: DTSParameter[], comment?: DTSComment) {
-        const parameterText = parameters.map((c) => c.toString()).join(", ");
+        const parameterText = parameters.map((c) => c.renderCode()).join(", ");
         super([`constructor(${parameterText})`], comment);
     }
 }
@@ -248,7 +253,7 @@ export class DTSConstructor extends DTSStatement {
 export class DTSFunction extends DTSTypedDeclaration {
     constructor(definition: FunctionLikeDefinition, comment?: DTSComment) {
         const parameterText = definition.parameters
-            .map((c) => c.toString())
+            .map((c) => c.renderCode())
             .join(", ");
         super(
             `function ${definition.name}${definition.typeParameterText}(${parameterText})`,
@@ -261,7 +266,7 @@ export class DTSFunction extends DTSTypedDeclaration {
 export class DTSMethod extends DTSTypedDeclaration {
     constructor(definition: FunctionLikeDefinition, comment?: DTSComment) {
         const parameterText = definition.parameters
-            .map((c) => c.toString())
+            .map((c) => c.renderCode())
             .join(", ");
         if (definition.modifiersText !== "")
             definition.modifiersText += " ";
@@ -284,9 +289,9 @@ export class DTSBlock extends CodeBlock {
         super(header, contents, comment);
     }
 
-    public toString(depth?: number | undefined): string {
+    public renderCode(depth?: number | undefined): string {
         const prefix = depth == null || depth <= 0 ? "declare " : "";
-        return super.toString(depth, { prefix });
+        return super.renderCode(depth, { prefix });
     }
 }
 
@@ -320,9 +325,9 @@ export class DTSClass extends DTSBlock {
         comment?: DTSComment,
     ) {
         let implementsText = classImplements
-            .map((t) => t.toString())
+            .map((t) => t.renderCode())
             .join(", ");
-        let extendText = definition.extends.map((t) => t.toString()).join();
+        let extendText = definition.extends.map((t) => t.renderCode()).join();
         if (implementsText !== "")
             implementsText = "implements " + implementsText;
         if (extendText !== "")
@@ -344,16 +349,16 @@ export class DTSClass extends DTSBlock {
 export class DTSInterface extends DTSBlock {
     constructor(definition: ClassLikeDefinition, comment?: DTSComment) {
         let extendsText = definition.extends
-            .map((t) => t.toString())
+            .map((t) => t.renderCode())
             .join(", ");
         if (extendsText !== "")
-            extendsText = " extends " + extendsText;
+            extendsText = "extends " + extendsText;
 
         super(
             new Statement([
                 "interface",
                 definition.name + definition.typeParameterText,
-                extendsText
+                extendsText,
             ]),
             [...definition.properties, ...definition.methods],
             comment,
@@ -367,8 +372,35 @@ export class DTSNamespace extends DTSBlock {
     }
 }
 
-export class DTSRoot extends DTSBlock {
-    constructor(contents: DTSCode[]) {
-        super(new Statement([""]), contents);
+export class DTSSourceFile extends DTSBlock {
+    constructor(
+        protected fileName: string,
+        contents: DTSCode[],
+        comment?: DTSComment,
+    ) {
+        super(new Statement([""]), contents, comment);
+    }
+
+    public renderCode(_depth?: number | undefined): string {
+        if (this.contents.length == 0)
+            return "";
+        const title = `// file: ${this.fileName}`;
+        return (
+            CodeCofig.instance.newline +
+            title +
+            CodeCofig.instance.newline +
+            CodeCofig.instance.newline +
+            this.contents.map((s) => s.renderCode(0)).join("")
+        );
+    }
+}
+
+export class DTSRoot extends DTSSourceFile {
+    constructor(protected contents: DTSSourceFile[]) {
+        super("", contents);
+    }
+
+    public renderCode(_depth?: number | undefined): string {
+        return this.contents.map((s) => s.renderCode(0)).join("");
     }
 }

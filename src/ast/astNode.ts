@@ -2,7 +2,6 @@ import { TypeNode, TypeParameters, TypeReferenceNode } from "./astType";
 import { DocFlags } from "./docFlag";
 
 export enum ASTNodeKind {
-    Root,
     Var,
     Param,
     Function,
@@ -14,7 +13,9 @@ export enum ASTNodeKind {
     Namespace,
     Interface,
     Type,
-    TypeParameter
+    TypeParameter,
+    SourceFile,
+    Root,
 }
 
 export interface ASTNode {
@@ -106,6 +107,11 @@ export interface NamespaceNode extends ModuleLikeNode {
     kind: ASTNodeKind.Namespace;
 }
 
+export interface SourceFileNode extends ModuleLikeNode {
+    kind: ASTNodeKind.SourceFile;
+}
+
 export interface RootNode extends ModuleLikeNode {
     kind: ASTNodeKind.Root;
+    children: SourceFileNode[];
 }

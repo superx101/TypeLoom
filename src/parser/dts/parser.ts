@@ -1,11 +1,13 @@
+
 import { ASTNodeBuilder } from "./builder";
 
-import { ASTNode } from "../../ast/astNode";
+import { ASTNode, ASTNodeKind, RootNode } from "../../ast/astNode";
 import { ASTUtil } from "../../util/astUtil";
 
 import ts from "typescript";
 
 import * as fs from "fs";
+import path from "path";
 
 export class DTSParser {
     private compilerOptions: ts.CompilerOptions;
@@ -14,33 +16,57 @@ export class DTSParser {
         this.compilerOptions = compilerOptions;
     }
 
-    protected getReferences(fileName: string): string[] {
-        const references: string[] = [];
+    protected getReferences(
+        fileName: string,
+        allReferences: Set<string> = new Set(),
+    ): void {
         const fileContent = fs.readFileSync(fileName, "utf-8");
         const referenceRegEx = /\/\/\/\s*<reference\s+path="(.+)"\s*\/>/g;
         let match: RegExpExecArray | null;
+
+        const dirName = path.dirname(fileName);
+
         while ((match = referenceRegEx.exec(fileContent)) !== null)
-            if (match[1])
-                references.push(match[1]);
+            if (match[1]) {
+                const referencePath = path.resolve(dirName, match[1]);
 
+                if (!allReferences.has(referencePath)) {
+                    allReferences.add(referencePath);
+                    this.getReferences(referencePath, allReferences);
+                }
+            }
 
-        return references;
     }
 
-    public parse(mainFile: string): ASTNode {
-        const references = this.getReferences(mainFile);
-        const program = ts.createProgram([mainFile, ...references], this.compilerOptions);
+    public parse(mainFilePath: string): RootNode {
+        const mainPath = path.resolve(mainFilePath);
+        const references = new Set<string>();
 
-        const sourceFile = program.getSourceFile(mainFile);
-        if (!sourceFile)
-            throw new Error();
+        references.add(mainPath);
+        this.getReferences(mainFilePath, references);
 
-        // Need Help: unknown reason, not using getTypeChecker, node will missing information
+        const files = Array.from(references);
+        files.sort();
+
+        const program = ts.createProgram(files, this.compilerOptions);
         program.getTypeChecker();
 
-        const visitor = new ASTNodeBuilder(sourceFile);
-        const ast = visitor.buildAST(sourceFile)!;
-        ASTUtil.instance.makeParent(ast);
-        return ast;
+        // build AST file by file
+        const root: RootNode = {
+            kind: ASTNodeKind.Root,
+            name: "",
+            children: [],
+        };
+        files.forEach((v) => {
+            const sourceFile = program.getSourceFile(v);
+            if (!sourceFile) {
+                console.error("Cannot get source file", v);
+                return;
+            }
+            const visitor = new ASTNodeBuilder(sourceFile, mainPath);
+            root.children.push(visitor.buildSourceFile(sourceFile));
+        });
+        ASTUtil.instance.makeParent(root);
+        return root;
     }
 }
