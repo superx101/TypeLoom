@@ -85,11 +85,13 @@ export interface ConstructorNode extends Omit<FunctionLikeNode, "async" | "retur
 export interface ClassLikeNode extends ASTNode, TypeParameters {
     properties: PropertyNode[];
     methods: MethodNode[];
+    extends: TypeReferenceNode[];
 }
 
 export interface ClassNode extends Omit<ClassLikeNode, "methods"> {
     kind: ASTNodeKind.Class;
     methods: (MethodNode | ConstructorNode)[];
+    implements: TypeReferenceNode[];
 }
 
 export interface InterfaceNode extends ClassLikeNode {

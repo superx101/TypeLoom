@@ -83,6 +83,16 @@ export class TypeBuilder {
         };
     }
 
+    public createTypeReferenceByExpressionWithTypeArguments(
+        node: ts.ExpressionWithTypeArguments,
+    ): TypeReferenceNode {
+        return {
+            kind: TypeNodeKind.TypeReference,
+            members: node.typeArguments?.map((type) => this.build(type)),
+            value: node.expression.getText(),
+        };
+    }
+
     public buildLiteralType(node: ts.LiteralTypeNode): LiteralTypeNode {
         return {
             kind: TypeNodeKind.Literal,
@@ -320,10 +330,33 @@ export class ASTNodeBuilder {
     }
 
     public buildClass(node: ts.ClassDeclaration): ClassNode {
-        // TODO:继承 and impl
         const properties: PropertyNode[] = [];
         const methods: (MethodNode | ConstructorNode)[] = [];
+        const classExtend: TypeReferenceNode[] = [];
+        const classImplements: TypeReferenceNode[] = [];
 
+        // set extend and implements
+        node.heritageClauses?.forEach((clause) => {
+            switch (clause.token) {
+            case ts.SyntaxKind.ExtendsKeyword:
+                classExtend[0] =
+                        TypeBuilder.instance.createTypeReferenceByExpressionWithTypeArguments(
+                            clause.types[0],
+                        );
+                break;
+            case ts.SyntaxKind.ImplementsKeyword:
+                classImplements.concat(
+                    clause.types.map((express) =>
+                        TypeBuilder.instance.createTypeReferenceByExpressionWithTypeArguments(
+                            express,
+                        ),
+                    ),
+                );
+                break;
+            }
+        });
+
+        // set property and method
         node.members.forEach((member) => {
             switch (member.kind) {
             case ts.SyntaxKind.PropertyDeclaration:
@@ -360,13 +393,28 @@ export class ASTNodeBuilder {
             ),
             properties,
             methods,
+            extends: classExtend,
+            implements: classImplements,
         };
     }
 
     public buildInterface(node: ts.InterfaceDeclaration): InterfaceNode {
         const properties: PropertyNode[] = [];
         const methods: MethodNode[] = [];
+        const interfaceExtends: TypeReferenceNode[] = [];
 
+        // set implements
+        node.heritageClauses?.forEach((clause) => {
+            interfaceExtends.concat(
+                clause.types.map((express) =>
+                    TypeBuilder.instance.createTypeReferenceByExpressionWithTypeArguments(
+                        express,
+                    ),
+                ),
+            );
+        });
+
+        // set members
         node.members.forEach((member) => {
             if (ts.isPropertySignature(member))
                 properties.push(this.buildProperty(member));
@@ -382,6 +430,7 @@ export class ASTNodeBuilder {
             ),
             properties,
             methods,
+            extends: interfaceExtends,
         };
     }
 

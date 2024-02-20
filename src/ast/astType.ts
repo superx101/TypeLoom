@@ -39,6 +39,10 @@ export interface TypeParameters {
     typeParameters?: TypeParameter[];
 }
 
+// export interface ExpressionWithTypeArguments extends TypeParameters {
+//     expression: TypeReferenceNode;
+// }
+
 export interface BasicTypeNode {
     kind: TypeNodeKind.Basic;
     value: BasicType;

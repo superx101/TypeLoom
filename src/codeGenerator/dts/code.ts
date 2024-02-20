@@ -32,6 +32,7 @@ export interface ClassLikeDefinition {
     properties: DTSProperty[];
     methods: DTSMethod[];
     typeParameterText: string;
+    extends: DTSType[];
 }
 
 export class DTSComment implements Code {
@@ -313,11 +314,26 @@ export class DTSEnum extends DTSBlock {
 }
 
 export class DTSClass extends DTSBlock {
-    constructor(definition: ClassLikeDefinition, comment?: DTSComment) {
+    constructor(
+        definition: ClassLikeDefinition,
+        classImplements: DTSType[],
+        comment?: DTSComment,
+    ) {
+        let implementsText = classImplements
+            .map((t) => t.toString())
+            .join(", ");
+        let extendText = definition.extends.map((t) => t.toString()).join();
+        if (implementsText !== "")
+            implementsText = "implements " + implementsText;
+        if (extendText !== "")
+            extendText = "extends " + extendText;
+
         super(
             new Statement([
                 "class",
                 definition.name + definition.typeParameterText,
+                extendText,
+                implementsText,
             ]),
             [...definition.properties, ...definition.methods],
             comment,
@@ -327,10 +343,17 @@ export class DTSClass extends DTSBlock {
 
 export class DTSInterface extends DTSBlock {
     constructor(definition: ClassLikeDefinition, comment?: DTSComment) {
+        let extendsText = definition.extends
+            .map((t) => t.toString())
+            .join(", ");
+        if (extendsText !== "")
+            extendsText = " extends " + extendsText;
+
         super(
             new Statement([
                 "interface",
                 definition.name + definition.typeParameterText,
+                extendsText
             ]),
             [...definition.properties, ...definition.methods],
             comment,

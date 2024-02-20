@@ -35,11 +35,31 @@ export class I18nUtil {
     @SingletonProperty
     public static readonly instance: I18nUtil;
 
-    public getKeyByNode(node: ASTNode) {
+    public formatKeyItem(key: string): string {
+        let formattedKey = "";
+        let isFirstChar = true;
+        for (const char of key)
+            if (char >= "A" && char <= "Z") {
+                if (isFirstChar) {
+                    formattedKey += char.toLowerCase();
+                    isFirstChar = false;
+                }
+                else {
+                    formattedKey += `-${char.toLowerCase()}`;
+                }
+            }
+            else {
+                formattedKey += char;
+                isFirstChar = false;
+            }
+        return formattedKey;
+    }
+
+    public getKeyByNode(node: ASTNode): string {
         const keyArr: string[] = [];
         let ptr: ASTPtr = node;
         while (ptr) {
-            keyArr.push(ptr.name);
+            keyArr.push(this.formatKeyItem(ptr.name));
             ptr = ptr.parent;
         }
         keyArr.pop();

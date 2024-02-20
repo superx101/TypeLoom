@@ -23,7 +23,6 @@ import {
     EnumNode,
     FunctionNode,
     InterfaceNode,
-    MethodNode,
     NamespaceNode,
     RootNode,
     VarNode,
@@ -66,7 +65,7 @@ export class DTSGenerator extends CodeGenerator {
         return new DTSComment(node, this.tr);
     }
 
-    public getModifiersText(node: ASTNode): string {
+    protected getModifiersText(node: ASTNode): string {
         // TODO async
         const modifiers: string[] = [];
         if (ASTNodeClassifier.instance.isMethodNode(node)) {
@@ -93,7 +92,7 @@ export class DTSGenerator extends CodeGenerator {
             .join(" ");
     }
 
-    public getTypeParameters(typeParameters?: TypeParameter[]) {
+    protected getTypeParameters(typeParameters?: TypeParameter[]) {
         if (!typeParameters || typeParameters.length == 0)
             return "";
         const texts = typeParameters.map((tp) => {
@@ -128,26 +127,30 @@ export class DTSGenerator extends CodeGenerator {
             const parameters: DTSParameter[] = [];
             for (const p of method.parameters)
                 parameters.push(new DTSParameter(p.name, new DTSType(p.type)));
-            if (method.kind === ASTNodeKind.Constructor)
+
+            if (method.kind === ASTNodeKind.Constructor) {
                 methods.push(
                     new DTSConstructor(parameters, this.getDTSComment(method)),
                 );
-            else
+            }
+            else {
+                const typeParameterText =
+                    TypeParameterUtil.instance.getTypeParametersText(
+                        method.typeParameters,
+                    );
                 methods.push(
                     new DTSMethod(
                         {
                             name: method.name,
                             parameters,
                             returnType: new DTSType(method.returnType),
-                            typeParameterText:
-                                TypeParameterUtil.instance.getTypeParametersText(
-                                    method.typeParameters,
-                                ),
+                            typeParameterText,
                             modifiersText: this.getModifiersText(method),
                         },
                         this.getDTSComment(method),
                     ),
                 );
+            }
         }
         return { properties, methods };
     }
@@ -166,25 +169,39 @@ export class DTSGenerator extends CodeGenerator {
 
     public createClass(node: ClassNode): DTSClass {
         const { properties, methods } = this.getPropertiesAndMethods(node);
-        return new DTSClass({
-            name: node.name,
-            properties,
-            methods,
-            typeParameterText: TypeParameterUtil.instance.getTypeParametersText(
+        const typeParameterText =
+            TypeParameterUtil.instance.getTypeParametersText(
                 node.typeParameters,
-            ),
-        });
+            );
+        const classExtend = node.extends.map((type) => new DTSType(type));
+        const classImplements = node.implements.map(
+            (type) => new DTSType(type),
+        );
+        return new DTSClass(
+            {
+                name: node.name,
+                properties,
+                methods,
+                typeParameterText,
+                extends: classExtend,
+            },
+            classImplements,
+        );
     }
 
     public createInterface(node: InterfaceNode): DTSInterface {
         const { properties, methods } = this.getPropertiesAndMethods(node);
+        const typeParameterText =
+            TypeParameterUtil.instance.getTypeParametersText(
+                node.typeParameters,
+            );
+        const interfaceExtends = node.extends.map((type) => new DTSType(type));
         return new DTSInterface({
             name: node.name,
             properties,
             methods,
-            typeParameterText: TypeParameterUtil.instance.getTypeParametersText(
-                node.typeParameters,
-            ),
+            typeParameterText,
+            extends: interfaceExtends
         });
     }
 
