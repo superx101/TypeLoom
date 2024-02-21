@@ -27,7 +27,7 @@ export class ExampleFlagStrategy implements FlagKeysStrategy {
         const baseKey = I18nUtil.instance.getKeyByNode(node);
         const keys: string[] = [];
         CodeCofig.instance.supportedLanguages.forEach((code) => {
-            keys.push(`${baseKey}.example.${flagName}.${code}`);
+            keys.push(`${baseKey}.${flagName}.${code}`);
         });
         return keys;
     }

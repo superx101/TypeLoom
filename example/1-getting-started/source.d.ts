@@ -154,7 +154,7 @@ declare namespace enumTestNamespace {
     }
 }
 
-declare namespace docFlagsTestNamespace {
+declare namespace exampleNamespace1 {
     /**
      * Make this node uncommented
      * @disable
