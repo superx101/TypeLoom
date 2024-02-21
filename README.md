@@ -1,6 +1,6 @@
 # TypeLoom
 
-TypeLoom is a typescript library, for simple transformation between type declaration files in multiple languages.
+TypeLoom is a typescript library for simple conversion between type declaration files in multiple languages and adding internationalization support.
 
 # Installing
 
