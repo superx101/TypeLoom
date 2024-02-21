@@ -1,4 +1,4 @@
-import { I18nUtil } from "./i18nUtil";
+import { I18nUtil } from "./util";
 
 import { ASTNode } from "../../ast/astNode";
 import { DocFlagKind, WrongFlagError } from "../../ast/docFlag";

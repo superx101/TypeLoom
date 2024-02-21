@@ -1,0 +1,2139 @@
+{
+  "kind": "Node[13] Root",
+  "name": "",
+  "children": [
+    {
+      "kind": "Node[12] SourceFile",
+      "name": "source-d-ts",
+      "children": [
+        {
+          "kind": "Node[8] Namespace",
+          "name": "namespaceTestNamespace",
+          "docFlags": {
+            "enable": true,
+            "flags": [
+              "text"
+            ]
+          },
+          "children": [
+            {
+              "kind": "Node[8] Namespace",
+              "name": "Namespace1",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "children": []
+            },
+            {
+              "kind": "Node[8] Namespace",
+              "name": "Namespace2",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "children": [
+                {
+                  "kind": "Node[8] Namespace",
+                  "name": "Namespace3",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "Node[0] Var",
+          "name": "v1",
+          "docFlags": {
+            "enable": true,
+            "flags": [
+              "text"
+            ]
+          },
+          "const": true,
+          "type": {
+            "kind": "Type[0] Basic",
+            "value": "TypeValue[1] dint"
+          }
+        },
+        {
+          "kind": "Node[8] Namespace",
+          "name": "variableTestNamespace",
+          "docFlags": {
+            "enable": true,
+            "flags": [
+              "text"
+            ]
+          },
+          "children": [
+            {
+              "kind": "Node[0] Var",
+              "name": "v1",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": false,
+              "type": {
+                "kind": "Type[0] Basic",
+                "value": "TypeValue[1] dint"
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v2",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": false,
+              "type": {
+                "kind": "Type[0] Basic",
+                "value": "TypeValue[1] dint"
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v3",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[0] Basic",
+                "value": "TypeValue[1] dint"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Node[8] Namespace",
+          "name": "typeTestNamespace",
+          "docFlags": {
+            "enable": true,
+            "flags": [
+              "text"
+            ]
+          },
+          "children": [
+            {
+              "kind": "Node[0] Var",
+              "name": "v1",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[0] Basic",
+                "value": "TypeValue[1] dint"
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v2",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[0] Basic",
+                "value": "TypeValue[2] dfloat"
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v3",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[1] Literal",
+                "value": "\"literal\""
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v4",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[2] Function",
+                "parameters": [],
+                "returnType": {
+                  "kind": 0,
+                  "value": 4
+                }
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v5",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[2] Function",
+                "parameters": [
+                  {
+                    "name": "p1",
+                    "type": {
+                      "kind": "Type[0] Basic",
+                      "value": "TypeValue[1] dint"
+                    },
+                    "optional": false
+                  }
+                ],
+                "returnType": {
+                  "kind": 0,
+                  "value": 4
+                }
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v6",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[2] Function",
+                "parameters": [
+                  {
+                    "name": "p1",
+                    "type": {
+                      "kind": "Type[0] Basic",
+                      "value": "TypeValue[1] dint"
+                    },
+                    "optional": false
+                  },
+                  {
+                    "name": "p2",
+                    "type": {
+                      "kind": "Type[0] Basic",
+                      "value": "TypeValue[0] dbool"
+                    },
+                    "optional": false
+                  }
+                ],
+                "returnType": {
+                  "kind": 0,
+                  "value": 4
+                }
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v7",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[2] Function",
+                "parameters": [
+                  {
+                    "name": "p1",
+                    "type": {
+                      "kind": "Type[2] Function",
+                      "parameters": [],
+                      "returnType": {
+                        "kind": 0,
+                        "value": 1
+                      }
+                    },
+                    "optional": false
+                  }
+                ],
+                "returnType": {
+                  "kind": 0,
+                  "value": 4
+                }
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v8",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[2] Function",
+                "parameters": [],
+                "typeParameters": [
+                  {
+                    "name": "T"
+                  }
+                ],
+                "returnType": {
+                  "kind": 6,
+                  "value": "T"
+                }
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v9",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[2] Function",
+                "parameters": [],
+                "typeParameters": [
+                  {
+                    "name": "T",
+                    "constraint": {
+                      "kind": 0,
+                      "value": 3
+                    }
+                  },
+                  {
+                    "name": "U"
+                  }
+                ],
+                "returnType": {
+                  "kind": 6,
+                  "value": "T"
+                }
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v10",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[7] TypeLiteral",
+                "members": [
+                  {
+                    "name": "p1",
+                    "type": {
+                      "kind": "Type[0] Basic",
+                      "value": "TypeValue[1] dint"
+                    },
+                    "optional": false
+                  },
+                  {
+                    "name": "p2",
+                    "type": {
+                      "kind": "Type[0] Basic",
+                      "value": "TypeValue[0] dbool"
+                    },
+                    "optional": false
+                  }
+                ]
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v11",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[4] Array",
+                "elementType": {
+                  "kind": 0,
+                  "value": 1
+                }
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v12",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[4] Array",
+                "elementType": {
+                  "kind": 4,
+                  "elementType": {
+                    "kind": 0,
+                    "value": 1
+                  }
+                }
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v13",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[5] Tuple",
+                "elements": [
+                  {
+                    "kind": 0,
+                    "value": 3
+                  },
+                  {
+                    "kind": 0,
+                    "value": 1
+                  }
+                ]
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v14",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[4] Array",
+                "elementType": {
+                  "kind": 5,
+                  "elements": [
+                    {
+                      "kind": 0,
+                      "value": 3
+                    },
+                    {
+                      "kind": 0,
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "kind": "Node[0] Var",
+              "name": "v15",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "const": true,
+              "type": {
+                "kind": "Type[3] Union",
+                "value": [
+                  {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[3] dstring"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "kind": "Node[8] Namespace",
+          "name": "functionTestNamespace",
+          "docFlags": {
+            "enable": true,
+            "flags": [
+              "text"
+            ]
+          },
+          "children": [
+            {
+              "kind": "Node[9] Interface",
+              "name": "Interface1",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "typeParameters": [
+                {
+                  "name": "T"
+                }
+              ],
+              "properties": [
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i1p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[6] TypeReference",
+                    "value": "T"
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                }
+              ],
+              "methods": [],
+              "extends": []
+            },
+            {
+              "kind": "Node[2] Function",
+              "name": "f1",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text",
+                  "params",
+                  "returns"
+                ]
+              },
+              "parameters": [],
+              "returnType": {
+                "kind": "Type[0] Basic",
+                "value": "TypeValue[1] dint"
+              },
+              "async": false
+            },
+            {
+              "kind": "Node[2] Function",
+              "name": "f2",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text",
+                  "params",
+                  "returns"
+                ]
+              },
+              "parameters": [
+                {
+                  "kind": "Node[1] Param",
+                  "name": "p1",
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "optional": false
+                }
+              ],
+              "returnType": {
+                "kind": "Type[0] Basic",
+                "value": "TypeValue[4] dvoid"
+              },
+              "async": false
+            },
+            {
+              "kind": "Node[2] Function",
+              "name": "f3",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text",
+                  "params",
+                  "returns"
+                ]
+              },
+              "parameters": [
+                {
+                  "kind": "Node[1] Param",
+                  "name": "p1",
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "optional": false
+                },
+                {
+                  "kind": "Node[1] Param",
+                  "name": "p2",
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[0] dbool"
+                  },
+                  "optional": false
+                }
+              ],
+              "returnType": {
+                "kind": "Type[0] Basic",
+                "value": "TypeValue[4] dvoid"
+              },
+              "async": false
+            },
+            {
+              "kind": "Node[2] Function",
+              "name": "f4",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text",
+                  "params",
+                  "returns"
+                ]
+              },
+              "parameters": [
+                {
+                  "kind": "Node[1] Param",
+                  "name": "p1",
+                  "type": {
+                    "kind": "Type[2] Function",
+                    "parameters": [],
+                    "returnType": {
+                      "kind": 0,
+                      "value": 1
+                    }
+                  },
+                  "optional": false
+                }
+              ],
+              "returnType": {
+                "kind": "Type[0] Basic",
+                "value": "TypeValue[4] dvoid"
+              },
+              "async": false
+            },
+            {
+              "kind": "Node[2] Function",
+              "name": "f5",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text",
+                  "params",
+                  "returns"
+                ]
+              },
+              "typeParameters": [
+                {
+                  "name": "T"
+                }
+              ],
+              "parameters": [],
+              "returnType": {
+                "kind": "Type[6] TypeReference",
+                "value": "T"
+              },
+              "async": false
+            },
+            {
+              "kind": "Node[2] Function",
+              "name": "f6",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text",
+                  "params",
+                  "returns"
+                ]
+              },
+              "typeParameters": [
+                {
+                  "name": "T",
+                  "constraint": {
+                    "kind": 0,
+                    "value": 3
+                  }
+                },
+                {
+                  "name": "U"
+                }
+              ],
+              "parameters": [],
+              "returnType": {
+                "kind": "Type[6] TypeReference",
+                "value": "T"
+              },
+              "async": false
+            },
+            {
+              "kind": "Node[2] Function",
+              "name": "f7",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text",
+                  "params",
+                  "returns"
+                ]
+              },
+              "parameters": [
+                {
+                  "kind": "Node[1] Param",
+                  "name": "p1",
+                  "type": {
+                    "kind": "Type[7] TypeLiteral",
+                    "members": [
+                      {
+                        "name": "p1",
+                        "type": {
+                          "kind": "Type[0] Basic",
+                          "value": "TypeValue[1] dint"
+                        },
+                        "optional": false
+                      },
+                      {
+                        "name": "p2",
+                        "type": {
+                          "kind": "Type[0] Basic",
+                          "value": "TypeValue[0] dbool"
+                        },
+                        "optional": false
+                      }
+                    ]
+                  },
+                  "optional": false
+                }
+              ],
+              "returnType": {
+                "kind": "Type[0] Basic",
+                "value": "TypeValue[4] dvoid"
+              },
+              "async": false
+            },
+            {
+              "kind": "Node[2] Function",
+              "name": "f8",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text",
+                  "params",
+                  "returns"
+                ]
+              },
+              "parameters": [
+                {
+                  "kind": "Node[1] Param",
+                  "name": "p1",
+                  "type": {
+                    "kind": "Type[6] TypeReference",
+                    "members": [
+                      {
+                        "kind": "Type[0] Basic",
+                        "value": "TypeValue[1] dint"
+                      }
+                    ],
+                    "value": "Interface1"
+                  },
+                  "optional": false
+                }
+              ],
+              "returnType": {
+                "kind": "Type[0] Basic",
+                "value": "TypeValue[4] dvoid"
+              },
+              "async": false
+            }
+          ]
+        },
+        {
+          "kind": "Node[8] Namespace",
+          "name": "interfaceTestNamaspace",
+          "docFlags": {
+            "enable": true,
+            "flags": [
+              "text"
+            ]
+          },
+          "children": [
+            {
+              "kind": "Node[9] Interface",
+              "name": "Interface1",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "properties": [
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i1p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i1p2",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": true
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i1p3",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "readonly": true,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i1p4",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[2] Function",
+                    "parameters": [],
+                    "returnType": {
+                      "kind": 0,
+                      "value": 1
+                    }
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i1p5",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[2] Function",
+                    "parameters": [
+                      {
+                        "name": "p1",
+                        "type": {
+                          "kind": "Type[0] Basic",
+                          "value": "TypeValue[0] dbool"
+                        },
+                        "optional": false
+                      }
+                    ],
+                    "typeParameters": [
+                      {
+                        "name": "T"
+                      }
+                    ],
+                    "returnType": {
+                      "kind": 0,
+                      "value": 1
+                    }
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i1p6",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[7] TypeLiteral",
+                    "members": [
+                      {
+                        "name": "i1p7",
+                        "type": {
+                          "kind": "Type[0] Basic",
+                          "value": "TypeValue[1] dint"
+                        },
+                        "optional": false
+                      },
+                      {
+                        "name": "i1p8",
+                        "type": {
+                          "kind": "Type[7] TypeLiteral",
+                          "members": [
+                            {
+                              "name": "i1p9",
+                              "type": {
+                                "kind": "Type[0] Basic",
+                                "value": "TypeValue[1] dint"
+                              },
+                              "optional": true
+                            }
+                          ]
+                        },
+                        "optional": true
+                      }
+                    ]
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                }
+              ],
+              "methods": [],
+              "extends": []
+            },
+            {
+              "kind": "Node[9] Interface",
+              "name": "Interface2",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "properties": [],
+              "methods": [],
+              "extends": []
+            },
+            {
+              "kind": "Node[9] Interface",
+              "name": "Interface3",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "properties": [
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i3p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                }
+              ],
+              "methods": [],
+              "extends": []
+            },
+            {
+              "kind": "Node[9] Interface",
+              "name": "Interface4",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "properties": [
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i4p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                }
+              ],
+              "methods": [],
+              "extends": []
+            },
+            {
+              "kind": "Node[9] Interface",
+              "name": "Interface5",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "typeParameters": [
+                {
+                  "name": "T"
+                }
+              ],
+              "properties": [
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i5p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[6] TypeReference",
+                    "value": "T"
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                }
+              ],
+              "methods": [],
+              "extends": []
+            },
+            {
+              "kind": "Node[9] Interface",
+              "name": "Interface6",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "typeParameters": [
+                {
+                  "name": "T"
+                }
+              ],
+              "properties": [],
+              "methods": [],
+              "extends": []
+            }
+          ]
+        },
+        {
+          "kind": "Node[8] Namespace",
+          "name": "classTestNamespace",
+          "docFlags": {
+            "enable": true,
+            "flags": [
+              "text"
+            ]
+          },
+          "children": [
+            {
+              "kind": "Node[9] Interface",
+              "name": "Interface1",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "properties": [],
+              "methods": [],
+              "extends": []
+            },
+            {
+              "kind": "Node[8] Namespace",
+              "name": "other",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "children": [
+                {
+                  "kind": "Node[3] Class",
+                  "name": "Class1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "properties": [],
+                  "methods": [],
+                  "extends": [],
+                  "implements": []
+                },
+                {
+                  "kind": "Node[3] Class",
+                  "name": "Class2",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "typeParameters": [
+                    {
+                      "name": "T"
+                    }
+                  ],
+                  "properties": [],
+                  "methods": [],
+                  "extends": [],
+                  "implements": []
+                },
+                {
+                  "kind": "Node[9] Interface",
+                  "name": "Interface1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "properties": [],
+                  "methods": [],
+                  "extends": []
+                },
+                {
+                  "kind": "Node[9] Interface",
+                  "name": "Interface2",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "typeParameters": [
+                    {
+                      "name": "T"
+                    }
+                  ],
+                  "properties": [],
+                  "methods": [],
+                  "extends": []
+                }
+              ]
+            },
+            {
+              "kind": "Node[3] Class",
+              "name": "Class1",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "properties": [
+                {
+                  "kind": "Node[4] Property",
+                  "name": "c1p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "c1p2",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "readonly": true,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "c1p3",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": true,
+                  "readonly": false,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "c1p4",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": true,
+                  "readonly": true,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "c1p5",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[2] Function",
+                    "parameters": [],
+                    "returnType": {
+                      "kind": 0,
+                      "value": 1
+                    }
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "c1p6",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[2] Function",
+                    "parameters": [],
+                    "returnType": {
+                      "kind": 0,
+                      "value": 1
+                    }
+                  },
+                  "static": false,
+                  "readonly": true,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "c1p7",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[2] Function",
+                    "parameters": [],
+                    "returnType": {
+                      "kind": 0,
+                      "value": 1
+                    }
+                  },
+                  "static": true,
+                  "readonly": false,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "c1p8",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[2] Function",
+                    "parameters": [],
+                    "returnType": {
+                      "kind": 0,
+                      "value": 1
+                    }
+                  },
+                  "static": true,
+                  "readonly": true,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "c1p9",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[2] Function",
+                    "parameters": [
+                      {
+                        "name": "param1",
+                        "type": {
+                          "kind": "Type[0] Basic",
+                          "value": "TypeValue[0] dbool"
+                        },
+                        "optional": false
+                      }
+                    ],
+                    "typeParameters": [
+                      {
+                        "name": "T"
+                      }
+                    ],
+                    "returnType": {
+                      "kind": 0,
+                      "value": 1
+                    }
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                }
+              ],
+              "methods": [
+                {
+                  "kind": "Node[6] Constructor",
+                  "name": "constructor",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text",
+                      "params"
+                    ]
+                  },
+                  "parameters": [
+                    {
+                      "kind": "Node[1] Param",
+                      "name": "p1",
+                      "type": {
+                        "kind": "Type[0] Basic",
+                        "value": "TypeValue[1] dint"
+                      },
+                      "optional": false
+                    }
+                  ]
+                },
+                {
+                  "kind": "Node[5] Method",
+                  "name": "c1m1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text",
+                      "params",
+                      "returns"
+                    ]
+                  },
+                  "parameters": [],
+                  "returnType": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "async": false
+                },
+                {
+                  "kind": "Node[5] Method",
+                  "name": "c1m2",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text",
+                      "params",
+                      "returns"
+                    ]
+                  },
+                  "parameters": [],
+                  "returnType": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": true,
+                  "async": false
+                },
+                {
+                  "kind": "Node[5] Method",
+                  "name": "c1m3",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text",
+                      "params",
+                      "returns"
+                    ]
+                  },
+                  "typeParameters": [
+                    {
+                      "name": "T"
+                    }
+                  ],
+                  "parameters": [],
+                  "returnType": {
+                    "kind": "Type[6] TypeReference",
+                    "value": "T"
+                  },
+                  "static": false,
+                  "async": false
+                }
+              ],
+              "extends": [],
+              "implements": []
+            },
+            {
+              "kind": "Node[3] Class",
+              "name": "Class2",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "properties": [
+                {
+                  "kind": "Node[4] Property",
+                  "name": "c2p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                }
+              ],
+              "methods": [],
+              "extends": [
+                {
+                  "kind": 6,
+                  "value": "Class1"
+                }
+              ],
+              "implements": []
+            },
+            {
+              "kind": "Node[3] Class",
+              "name": "Class3",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "properties": [],
+              "methods": [],
+              "extends": [
+                {
+                  "kind": 6,
+                  "value": "other.Class1"
+                }
+              ],
+              "implements": [
+                {
+                  "kind": 6,
+                  "value": "other.Interface1"
+                }
+              ]
+            },
+            {
+              "kind": "Node[3] Class",
+              "name": "Class4",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "properties": [
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i3p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i4p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                }
+              ],
+              "methods": [],
+              "extends": [],
+              "implements": [
+                {
+                  "kind": 6,
+                  "value": "other.Interface1"
+                },
+                {
+                  "kind": 6,
+                  "value": "Interface1"
+                }
+              ]
+            },
+            {
+              "kind": "Node[3] Class",
+              "name": "Class5",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "typeParameters": [
+                {
+                  "name": "T"
+                }
+              ],
+              "properties": [
+                {
+                  "kind": "Node[4] Property",
+                  "name": "c4p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[6] TypeReference",
+                    "value": "T"
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                }
+              ],
+              "methods": [],
+              "extends": [],
+              "implements": []
+            },
+            {
+              "kind": "Node[3] Class",
+              "name": "Class6",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "typeParameters": [
+                {
+                  "name": "T"
+                },
+                {
+                  "name": "U"
+                }
+              ],
+              "properties": [],
+              "methods": [],
+              "extends": [
+                {
+                  "kind": 6,
+                  "members": [
+                    {
+                      "kind": 6,
+                      "value": "T"
+                    }
+                  ],
+                  "value": "other.Class2"
+                }
+              ],
+              "implements": []
+            },
+            {
+              "kind": "Node[3] Class",
+              "name": "Class7",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "typeParameters": [
+                {
+                  "name": "T",
+                  "constraint": {
+                    "kind": 6,
+                    "members": [
+                      {
+                        "kind": 6,
+                        "members": [
+                          {
+                            "kind": 0,
+                            "value": 1
+                          }
+                        ],
+                        "value": "Class5"
+                      },
+                      {
+                        "kind": 0,
+                        "value": 3
+                      }
+                    ],
+                    "value": "Class6"
+                  }
+                }
+              ],
+              "properties": [],
+              "methods": [],
+              "extends": [],
+              "implements": []
+            },
+            {
+              "kind": "Node[3] Class",
+              "name": "Class8",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "properties": [],
+              "methods": [],
+              "extends": [
+                {
+                  "kind": 6,
+                  "members": [
+                    {
+                      "kind": 6,
+                      "members": [
+                        {
+                          "kind": 6,
+                          "members": [
+                            {
+                              "kind": 0,
+                              "value": 1
+                            }
+                          ],
+                          "value": "Class5"
+                        },
+                        {
+                          "kind": 0,
+                          "value": 3
+                        }
+                      ],
+                      "value": "Class6"
+                    }
+                  ],
+                  "value": "Class7"
+                }
+              ],
+              "implements": []
+            },
+            {
+              "kind": "Node[3] Class",
+              "name": "Class9",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "typeParameters": [
+                {
+                  "name": "T"
+                }
+              ],
+              "properties": [],
+              "methods": [],
+              "extends": [
+                {
+                  "kind": 6,
+                  "members": [
+                    {
+                      "kind": 6,
+                      "value": "T"
+                    }
+                  ],
+                  "value": "Class5"
+                }
+              ],
+              "implements": []
+            },
+            {
+              "kind": "Node[3] Class",
+              "name": "Class10",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "typeParameters": [
+                {
+                  "name": "T"
+                }
+              ],
+              "properties": [],
+              "methods": [],
+              "extends": [],
+              "implements": [
+                {
+                  "kind": 6,
+                  "value": "other.Interface1"
+                },
+                {
+                  "kind": 6,
+                  "members": [
+                    {
+                      "kind": 6,
+                      "value": "T"
+                    }
+                  ],
+                  "value": "other.Interface2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "Node[8] Namespace",
+          "name": "enumTestNamespace",
+          "docFlags": {
+            "enable": true,
+            "flags": [
+              "text"
+            ]
+          },
+          "children": [
+            {
+              "kind": "Node[7] Enum",
+              "name": "Enum1",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "values": [
+                {
+                  "name": "A",
+                  "value": 0
+                },
+                {
+                  "name": "B",
+                  "value": 1
+                },
+                {
+                  "name": "C",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "kind": "Node[7] Enum",
+              "name": "Enum2",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "values": [
+                {
+                  "name": "A",
+                  "value": "\"A\""
+                },
+                {
+                  "name": "B",
+                  "value": "\"B\""
+                },
+                {
+                  "name": "C",
+                  "value": "\"c\""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "Node[8] Namespace",
+          "name": "docFlagsTestNamespace",
+          "docFlags": {
+            "enable": true,
+            "flags": [
+              "text"
+            ]
+          },
+          "children": [
+            {
+              "kind": "Node[9] Interface",
+              "name": "Interface1",
+              "docFlags": {
+                "enable": false,
+                "flags": []
+              },
+              "properties": [],
+              "methods": [],
+              "extends": []
+            },
+            {
+              "kind": "Node[9] Interface",
+              "name": "Interface2",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text",
+                  "deprecated"
+                ]
+              },
+              "properties": [
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i2p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text",
+                      "deprecated",
+                      "example"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                },
+                {
+                  "kind": "Node[4] Property",
+                  "name": "i2p2",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text",
+                      "params",
+                      "returns"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[2] Function",
+                    "parameters": [
+                      {
+                        "name": "p1",
+                        "type": {
+                          "kind": "Type[0] Basic",
+                          "value": "TypeValue[1] dint"
+                        },
+                        "optional": false
+                      }
+                    ],
+                    "returnType": {
+                      "kind": 0,
+                      "value": 1
+                    }
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                }
+              ],
+              "methods": [],
+              "extends": []
+            },
+            {
+              "kind": "Node[3] Class",
+              "name": "Class1",
+              "docFlags": {
+                "enable": true,
+                "flags": [
+                  "text"
+                ]
+              },
+              "properties": [
+                {
+                  "kind": "Node[4] Property",
+                  "name": "c1p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
+                  "type": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "readonly": false,
+                  "optional": false
+                }
+              ],
+              "methods": [
+                {
+                  "kind": "Node[6] Constructor",
+                  "name": "constructor",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text",
+                      "params"
+                    ]
+                  },
+                  "parameters": [
+                    {
+                      "kind": "Node[1] Param",
+                      "name": "p1",
+                      "type": {
+                        "kind": "Type[0] Basic",
+                        "value": "TypeValue[1] dint"
+                      },
+                      "optional": false
+                    },
+                    {
+                      "kind": "Node[1] Param",
+                      "name": "p2",
+                      "type": {
+                        "kind": "Type[0] Basic",
+                        "value": "TypeValue[0] dbool"
+                      },
+                      "optional": false
+                    }
+                  ]
+                },
+                {
+                  "kind": "Node[5] Method",
+                  "name": "c1m1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text",
+                      "params",
+                      "returns"
+                    ]
+                  },
+                  "parameters": [],
+                  "returnType": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "async": false
+                },
+                {
+                  "kind": "Node[5] Method",
+                  "name": "c1m2",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text",
+                      "params",
+                      "returns"
+                    ]
+                  },
+                  "parameters": [
+                    {
+                      "kind": "Node[1] Param",
+                      "name": "p1",
+                      "type": {
+                        "kind": "Type[0] Basic",
+                        "value": "TypeValue[1] dint"
+                      },
+                      "optional": false
+                    },
+                    {
+                      "kind": "Node[1] Param",
+                      "name": "p2",
+                      "type": {
+                        "kind": "Type[0] Basic",
+                        "value": "TypeValue[3] dstring"
+                      },
+                      "optional": false
+                    }
+                  ],
+                  "returnType": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "async": false
+                },
+                {
+                  "kind": "Node[5] Method",
+                  "name": "c2m3",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text",
+                      "params",
+                      "returns",
+                      "text",
+                      "text"
+                    ]
+                  },
+                  "parameters": [
+                    {
+                      "kind": "Node[1] Param",
+                      "name": "p1",
+                      "type": {
+                        "kind": "Type[0] Basic",
+                        "value": "TypeValue[1] dint"
+                      },
+                      "optional": false
+                    },
+                    {
+                      "kind": "Node[1] Param",
+                      "name": "p2",
+                      "type": {
+                        "kind": "Type[0] Basic",
+                        "value": "TypeValue[3] dstring"
+                      },
+                      "optional": false
+                    }
+                  ],
+                  "returnType": {
+                    "kind": "Type[0] Basic",
+                    "value": "TypeValue[1] dint"
+                  },
+                  "static": false,
+                  "async": false
+                }
+              ],
+              "extends": [],
+              "implements": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "Node[12] SourceFile",
+      "name": "type.declareType-d-ts",
+      "children": []
+    }
+  ]
+}

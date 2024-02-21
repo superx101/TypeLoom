@@ -14,7 +14,7 @@ import {
     ArrayTypeNode,
     TupleTypeNode,
 } from "../../ast/astType";
-import { Translator } from "../../util/i18n/i18nUtil";
+import { Translator } from "../../util/i18n/util";
 import { Code, CodeBlock, CodeCofig, CodeUtil, Statement } from "../code";
 
 export type DTSCode = DTSBlock | DTSStatement;

@@ -1,4 +1,5 @@
-TODO.md
-dist/
-node_modules/
+node_modules
 package-lock.json
+
+TODO.md
+dist/**

@@ -2,7 +2,7 @@ import { ASTNode, FunctionLikeNode } from "../../ast/astNode";
 import { DocFlagKind, DocFlagUtil, WrongFlagError } from "../../ast/docFlag";
 import { ASTNodeClassifier, ASTUtil } from "../../util/astUtil";
 import { SingletonProperty } from "../../util/classDecorator";
-import { I18nUtil } from "../../util/i18n/i18nUtil";
+import { I18nUtil } from "../../util/i18n/util";
 
 export type DocRecord = { key: string; prefix: string };
 

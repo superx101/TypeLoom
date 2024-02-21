@@ -13,6 +13,21 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "Run current file",
+            "type": "node",
+            "request": "launch",
+            "program": "${file}",
+            "runtimeArgs": [
+                "-r",
+                "ts-node/register"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd": "${fileDirname}",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Run js file",
             "program": "${file}",
             "request": "launch",

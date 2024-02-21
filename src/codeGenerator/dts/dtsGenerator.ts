@@ -32,7 +32,7 @@ import {
 import { TypeParameter } from "../../ast/astType";
 import { ASTNodeClassifier, ASTUtil } from "../../util/astUtil";
 import { SingletonProperty } from "../../util/classDecorator";
-import { Translator } from "../../util/i18n/i18nUtil";
+import { Translator } from "../../util/i18n/util";
 import { Commentable } from "../code";
 import { CodeGenerator } from "../generator";
 

@@ -1,4 +1,4 @@
-import {  LanguageCode } from "./i18nUtil";
+import {  LanguageCode } from "./util";
 
 import { CodeCofig } from "../../codeGenerator/code";
 
