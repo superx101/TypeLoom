@@ -23,7 +23,6 @@ export function SingletonProperty(
         get: function () {
             if (!instance)
                 instance = new this();
-
             return instance;
         },
         enumerable: true,

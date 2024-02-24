@@ -1,8 +1,7 @@
 
-import { ASTNodeBuilder } from "./builder";
+import { ASTNodeBuilder } from "./nodeBuilder";
 
-import { ASTNode, ASTNodeKind, RootNode } from "../../ast/astNode";
-import { ASTUtil } from "../../util/astUtil";
+import { ASTNode, RootNode } from "../../ast/astNode";
 
 import ts from "typescript";
 
@@ -52,11 +51,8 @@ export class DTSParser {
         program.getTypeChecker();
 
         // build AST file by file
-        const root: RootNode = {
-            kind: ASTNodeKind.Root,
-            name: "",
-            children: [],
-        };
+        const children: ASTNode[] = [];
+        const node = new RootNode(children);
         files.forEach((v) => {
             const sourceFile = program.getSourceFile(v);
             if (!sourceFile) {
@@ -64,9 +60,8 @@ export class DTSParser {
                 return;
             }
             const visitor = new ASTNodeBuilder(sourceFile, mainPath);
-            root.children.push(visitor.buildSourceFile(sourceFile));
+            children.push(visitor.buildSourceFile(sourceFile, node));
         });
-        ASTUtil.instance.makeParent(root);
-        return root;
+        return node;
     }
 }

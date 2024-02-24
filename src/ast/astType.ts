@@ -1,14 +1,4 @@
-export type TypeNode =
-    | BasicTypeNode
-    | LiteralTypeNode
-    | FunctionTypeNode
-    | UnionTypeNode
-    | ArrayTypeNode
-    | TupleTypeNode
-    | TypeReferenceNode
-    | TypeLiteralNode
-
-export type TypePtr = TypeNode | undefined;
+export type TypePtr = TypeNode | null;
 
 export enum TypeNodeKind {
     Basic,
@@ -30,27 +20,39 @@ export enum BasicType {
     dany,
 }
 
+export type AllTypeNodes =
+    | BasicTypeNode
+    | LiteralTypeNode
+    | FunctionTypeNode
+    | UnionTypeNode
+    | ArrayTypeNode
+    | TupleTypeNode
+    | TypeReferenceNode
+    | TypeLiteralNode
+
 export interface TypeParameter {
     name: string;
-    constraint?: TypeReferenceNode
+    constraint?: TypeReferenceNode;
 }
 
 export interface TypeParameters {
     typeParameters?: TypeParameter[];
 }
 
-// export interface ExpressionWithTypeArguments extends TypeParameters {
-//     expression: TypeReferenceNode;
-// }
-
-export interface BasicTypeNode {
-    kind: TypeNodeKind.Basic;
-    value: BasicType;
+export class TypeNode {
+    constructor(public readonly kind: TypeNodeKind) {}
 }
 
-export interface LiteralTypeNode {
-    kind: TypeNodeKind.Literal;
-    value: string | number | boolean;
+export class BasicTypeNode extends TypeNode {
+    constructor(public value: BasicType) {
+        super(TypeNodeKind.Basic);
+    }
+}
+
+export class LiteralTypeNode extends TypeNode {
+    constructor(public value: string | number | boolean) {
+        super(TypeNodeKind.Literal);
+    }
 }
 
 export interface ParameterType {
@@ -61,34 +63,53 @@ export interface ParameterType {
 
 export interface PropertyType extends ParameterType {}
 
-export interface FunctionTypeNode extends TypeParameters {
-    kind: TypeNodeKind.Function;
-    parameters: ParameterType[];
-    returnType: TypeNode;
+export class FunctionTypeNode extends TypeNode implements TypeParameters {
+    constructor(
+        public parameters: ParameterType[],
+        public returnType: TypeNode,
+        public typeParameters?: TypeParameter[],
+    ) {
+        super(TypeNodeKind.Function);
+    }
 }
 
-export interface UnionTypeNode {
-    kind: TypeNodeKind.Union;
-    value: Exclude<TypeNode, UnionTypeNode>[];
+export class UnionTypeNode extends TypeNode {
+    constructor(
+        public elements: TypeNode[],
+    ) {
+        super(TypeNodeKind.Union);
+    }
 }
 
-export interface ArrayTypeNode {
-    kind: TypeNodeKind.Array;
-    elementType: TypeNode;
+export class ArrayTypeNode extends TypeNode {
+    constructor(
+        public elementType: TypeNode,
+    ) {
+        super(TypeNodeKind.Array);
+    }
 }
 
-export interface TupleTypeNode {
-    kind: TypeNodeKind.Tuple;
-    elements: TypeNode[];
+export class TupleTypeNode extends TypeNode {
+    constructor(
+        public elements: TypeNode[],
+    ) {
+        super(TypeNodeKind.Tuple);
+    }
 }
 
-export interface TypeReferenceNode {
-    kind: TypeNodeKind.TypeReference;
-    members?: TypeNode[];
-    value: string;
+export class TypeReferenceNode extends TypeNode {
+    constructor(
+        public value: string,
+        public members?: TypeNode[],
+    ) {
+        super(TypeNodeKind.TypeReference);
+    }
 }
 
-export interface TypeLiteralNode {
-    kind: TypeNodeKind.TypeLiteral;
-    members: PropertyType[];
+export class TypeLiteralNode extends TypeNode {
+    constructor(
+        public members: PropertyType[],
+    ) {
+        super(TypeNodeKind.TypeLiteral);
+    }
 }

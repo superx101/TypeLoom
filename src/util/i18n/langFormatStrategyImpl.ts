@@ -1,6 +1,6 @@
 import {  LanguageCode } from "./util";
 
-import { CodeCofig } from "../../codeGenerator/code";
+import { CodeCofig } from "../../generator/code";
 
 export interface LangFormatStrategy {
     /**

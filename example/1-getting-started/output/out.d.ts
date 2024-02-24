@@ -402,59 +402,59 @@ declare namespace enumTestNamespace {
     }
 }
 /**
- * source-d-ts.doc-flags-test-namespace.text0
+ * source-d-ts.example-namespace1.text0
  */
-declare namespace docFlagsTestNamespace {
+declare namespace exampleNamespace1 {
     interface Interface1 {}
     /**
-     * source-d-ts.doc-flags-test-namespace.interface2.text0
-     * @deprecated source-d-ts.doc-flags-test-namespace.interface2.deprecated
+     * source-d-ts.example-namespace1.interface2.text0
+     * @deprecated source-d-ts.example-namespace1.interface2.deprecated
      */
     interface Interface2 {
         /**
-         * source-d-ts.doc-flags-test-namespace.interface2.i2p1.text0
-         * @deprecated source-d-ts.doc-flags-test-namespace.interface2.i2p1.deprecated
-         * @example source-d-ts.doc-flags-test-namespace.interface2.i2p1.example.ts
+         * source-d-ts.example-namespace1.interface2.i2p1.text0
+         * @deprecated source-d-ts.example-namespace1.interface2.i2p1.deprecated
+         * @example source-d-ts.example-namespace1.interface2.i2p1.example.ts
          */
         i2p1: number;
         /**
-         * source-d-ts.doc-flags-test-namespace.interface2.i2p2.text0
+         * source-d-ts.example-namespace1.interface2.i2p2.text0
          */
         i2p2: (p1: number) => number;
     }
     /**
-     * source-d-ts.doc-flags-test-namespace.class1.text0
+     * source-d-ts.example-namespace1.class1.text0
      */
     class Class1 {
         /**
-         * source-d-ts.doc-flags-test-namespace.class1.c1p1.text0
+         * source-d-ts.example-namespace1.class1.c1p1.text0
          */
         c1p1: number;
         /**
-         * source-d-ts.doc-flags-test-namespace.class1.constructor.text0
-         * @param p1 source-d-ts.doc-flags-test-namespace.class1.constructor.param.p1
-         * @param p2 source-d-ts.doc-flags-test-namespace.class1.constructor.param.p2
+         * source-d-ts.example-namespace1.class1.constructor.text0
+         * @param p1 source-d-ts.example-namespace1.class1.constructor.param.p1
+         * @param p2 source-d-ts.example-namespace1.class1.constructor.param.p2
          */
         constructor(p1: number, p2: boolean);
         /**
-         * source-d-ts.doc-flags-test-namespace.class1.c1m1.text0
-         * @returns source-d-ts.doc-flags-test-namespace.class1.c1m1.returns
+         * source-d-ts.example-namespace1.class1.c1m1.text0
+         * @returns source-d-ts.example-namespace1.class1.c1m1.returns
          */
         c1m1(): number;
         /**
-         * source-d-ts.doc-flags-test-namespace.class1.c1m2.text0
-         * @param p1 source-d-ts.doc-flags-test-namespace.class1.c1m2.param.p1
-         * @param p2 source-d-ts.doc-flags-test-namespace.class1.c1m2.param.p2
-         * @returns source-d-ts.doc-flags-test-namespace.class1.c1m2.returns
+         * source-d-ts.example-namespace1.class1.c1m2.text0
+         * @param p1 source-d-ts.example-namespace1.class1.c1m2.param.p1
+         * @param p2 source-d-ts.example-namespace1.class1.c1m2.param.p2
+         * @returns source-d-ts.example-namespace1.class1.c1m2.returns
          */
         c1m2(p1: number, p2: string): number;
         /**
-         * source-d-ts.doc-flags-test-namespace.class1.c2m3.text0
-         * @param p1 source-d-ts.doc-flags-test-namespace.class1.c2m3.param.p1
-         * @param p2 source-d-ts.doc-flags-test-namespace.class1.c2m3.param.p2
-         * @returns source-d-ts.doc-flags-test-namespace.class1.c2m3.returns
-         * source-d-ts.doc-flags-test-namespace.class1.c2m3.text1
-         * source-d-ts.doc-flags-test-namespace.class1.c2m3.text2
+         * source-d-ts.example-namespace1.class1.c2m3.text0
+         * @param p1 source-d-ts.example-namespace1.class1.c2m3.param.p1
+         * @param p2 source-d-ts.example-namespace1.class1.c2m3.param.p2
+         * @returns source-d-ts.example-namespace1.class1.c2m3.returns
+         * source-d-ts.example-namespace1.class1.c2m3.text1
+         * source-d-ts.example-namespace1.class1.c2m3.text2
          */
         c2m3(p1: number, p2: string): number;
     }

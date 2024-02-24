@@ -5,12 +5,10 @@ import {
 } from "./FlagKeysStrategyImpl";
 import { LangFormatStrategy, LangFormatStrategyFactory } from "./langFormatStrategyImpl";
 
-import { ASTNode, ASTPtr } from "../../ast/astNode";
+import { ASTNode, ASTPtr, RootNode } from "../../ast/astNode";
 import { DocFlagKind, DocFlagUtil, WrongFlagError } from "../../ast/docFlag";
-import { ASTNodeClassifier, ASTNodeVisitor } from "../astUtil";
+import { ASTNodeVisitor } from "../astUtil";
 import { SingletonProperty } from "../classDecorator";
-
-import path from "path";
 
 export type TranslatedValue = string | string[]
 export type LangRecord = Record<string, TranslatedValue>;
@@ -107,8 +105,8 @@ export class I18nUtil {
 
     public createKeyMaps(node: ASTNode): Record<string, string> {
         const keysMap: Record<string, string> = {};
-        ASTNodeVisitor.instance.visitNode(undefined, node, (parent, child) => {
-            if (ASTNodeClassifier.instance.isRootNode(child))
+        ASTNodeVisitor.instance.visitNode(null, node, (parent, child) => {
+            if (child instanceof RootNode)
                 return;
             if (!child.docFlags || !child.docFlags.enable)
                 return;

@@ -3,7 +3,7 @@ import {
 } from "../ast/astNode";
 import { Translator } from "../util/i18n/util";
 
-export abstract class CodeGenerator {
+export abstract class generator {
     protected abstract tr: Translator;
-    public abstract getCodeText(node: ASTNode): string;
+    public abstract renderCodeText(node: ASTNode): string;
 }

@@ -35,6 +35,6 @@ console.info("Generated lang file to", langFilePath);
 
 // generate d.ts code from AST
 const generator = new DTSGenerator(new Translator(langMap, LanguageCode.en_us));
-const codeText = generator.getCodeText(ast);
+const codeText = generator.renderCodeText(ast);
 fs.writeFileSync(outputPath, codeText);
 console.info("Generated typescript output file to", outputPath);

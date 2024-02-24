@@ -1,6 +1,5 @@
 import { ASTNode, FunctionLikeNode } from "../../ast/astNode";
 import { DocFlagKind, DocFlagUtil, WrongFlagError } from "../../ast/docFlag";
-import { ASTNodeClassifier, ASTUtil } from "../../util/astUtil";
 import { SingletonProperty } from "../../util/classDecorator";
 import { I18nUtil } from "../../util/i18n/util";
 
@@ -77,7 +76,7 @@ export class ParamRecordStrategy implements RecordStrategy {
         baseKey: string,
         _flagName: string,
     ): DocRecord[] {
-        if (!ASTNodeClassifier.instance.isFunctionLikeNode(node))
+        if (!(node instanceof FunctionLikeNode))
             throw new WrongFlagError(
                 `'${node.name}' is not functionLikeNode, do not allow use 'params' tag`,
             );
@@ -99,7 +98,7 @@ export class ReturnRecordStrategy extends SimpleRecordStrategy {
         baseKey: string,
         _flagName: string,
     ): DocRecord[] {
-        if (!ASTNodeClassifier.instance.isFunctionLikeNode(node))
+        if (!(node instanceof FunctionLikeNode))
             throw new WrongFlagError(
                 `'${node.name}' is not functionLikeNode, do not allow use 'returns' tag`,
             );

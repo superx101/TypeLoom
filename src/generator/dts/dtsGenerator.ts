@@ -1,6 +1,5 @@
 import {
     DTSComment,
-    DTSBlock,
     DTSClass,
     DTSConstructor,
     DTSEnum,
@@ -17,6 +16,11 @@ import {
     DTSSourceFile,
 } from "./dtsCode";
 
+
+import { Commentable } from "../code";
+import { generator } from "../generator";
+
+import { TypeParameter } from "src/ast";
 import {
     ASTNode,
     ASTNodeKind,
@@ -24,17 +28,17 @@ import {
     EnumNode,
     FunctionNode,
     InterfaceNode,
+    MethodNode,
+    ModifierKind,
     NamespaceNode,
+    PropertyNode,
     RootNode,
     SourceFileNode,
     VarNode,
-} from "../../ast/astNode";
-import { TypeParameter } from "../../ast/astType";
-import { ASTNodeClassifier, ASTUtil } from "../../util/astUtil";
-import { SingletonProperty } from "../../util/classDecorator";
-import { Translator } from "../../util/i18n/util";
-import { Commentable } from "../code";
-import { CodeGenerator } from "../generator";
+} from "src/ast/astNode";
+import { Translator } from "src/i18n";
+import { ASTUtil } from "src/util/astUtil";
+import { SingletonProperty } from "src/util/classDecorator";
 
 export class TypeParameterUtil {
     @SingletonProperty
@@ -52,7 +56,8 @@ export class TypeParameterUtil {
     }
 }
 
-export class DTSGenerator extends CodeGenerator {
+
+export class DTSGenerator extends generator {
     constructor(protected tr: Translator) {
         super();
     }
@@ -70,19 +75,12 @@ export class DTSGenerator extends CodeGenerator {
     protected getModifiersText(node: ASTNode): string {
         // TODO async
         const modifiers: string[] = [];
-        if (ASTNodeClassifier.instance.isMethodNode(node)) {
-            if (node.static)
-                modifiers.push("static");
-        }
-        else if (ASTNodeClassifier.instance.isPropertyNode(node)) {
-            if (node.static)
-                modifiers.push("static");
-            if (node.readonly)
-                modifiers.push("readonly");
-        }
-        else {
+        if (node instanceof MethodNode || node instanceof PropertyNode)
+            modifiers.push(
+                ...node.modifier.map((m) => ModifierKind[m].toLowerCase()),
+            );
+        else
             return "";
-        }
 
         return modifiers
             .slice()
@@ -119,7 +117,7 @@ export class DTSGenerator extends CodeGenerator {
                         name: property.name,
                         type: new DTSType(property.type),
                         modifiersText: this.getModifiersText(property),
-                        isOptional: property.optional,
+                        isOptional: property.isOptional,
                     },
                     this.getDTSComment(property),
                 ),
@@ -157,26 +155,26 @@ export class DTSGenerator extends CodeGenerator {
         return { properties, methods };
     }
 
-    public createVar(node: VarNode): DTSVar {
+    public renderVar(node: VarNode): DTSVar {
         return new DTSVar({
             name: node.name,
             type: new DTSType(node.type),
-            isConst: node.const,
+            isConst: node.isConst,
         });
     }
 
-    public createEnum(node: EnumNode): DTSEnum {
+    public renderEnum(node: EnumNode): DTSEnum {
         return new DTSEnum(node.name, node.values);
     }
 
-    public createClass(node: ClassNode): DTSClass {
+    public renderClass(node: ClassNode): DTSClass {
         const { properties, methods } = this.getPropertiesAndMethods(node);
         const typeParameterText =
             TypeParameterUtil.instance.getTypeParametersText(
                 node.typeParameters,
             );
         const classExtend = node.extends.map((type) => new DTSType(type));
-        const classImplements = node.implements.map(
+        const classImplements = node.classImplements.map(
             (type) => new DTSType(type),
         );
         return new DTSClass(
@@ -191,7 +189,7 @@ export class DTSGenerator extends CodeGenerator {
         );
     }
 
-    public createInterface(node: InterfaceNode): DTSInterface {
+    public renderInterface(node: InterfaceNode): DTSInterface {
         const { properties, methods } = this.getPropertiesAndMethods(node);
         const typeParameterText =
             TypeParameterUtil.instance.getTypeParametersText(
@@ -203,18 +201,18 @@ export class DTSGenerator extends CodeGenerator {
             properties,
             methods,
             typeParameterText,
-            extends: interfaceExtends
+            extends: interfaceExtends,
         });
     }
 
-    public createFunctionCode(node: FunctionNode): DTSFunction {
+    public renderFunctionCode(node: FunctionNode): DTSFunction {
         const parameters: DTSParameter[] = [];
         for (const parameter of node.parameters)
             parameters.push(
                 new DTSParameter(
                     parameter.name,
                     new DTSType(parameter.type),
-                    parameter.optional,
+                    parameter.isOptional,
                 ),
             );
         return new DTSFunction({
@@ -228,57 +226,57 @@ export class DTSGenerator extends CodeGenerator {
         });
     }
 
-    public createNamespaceCode(node: NamespaceNode): DTSNamespace {
+    public renderNamespaceCode(node: NamespaceNode): DTSNamespace {
         const contents: DTSCode[] = [];
         for (const child of node.children)
-            contents.push(this.createCode(child));
+            contents.push(this.renderCode(child));
         return new DTSNamespace(node.name, contents);
     }
 
-    public createRootCode(node: RootNode): DTSRoot {
+    public renderRootCode(node: RootNode): DTSRoot {
         const contents: DTSSourceFile[] = [];
         for (const child of (<RootNode>node).children)
-            contents.push(this.craeteSourceFileCode(child));
+            contents.push(this.renderSourceFileCode(<SourceFileNode>child));
         return new DTSRoot(contents);
     }
 
-    public craeteSourceFileCode(node: SourceFileNode): DTSSourceFile {
+    public renderSourceFileCode(node: SourceFileNode): DTSSourceFile {
         const contents: DTSCode[] = [];
         for (const child of node.children)
-            contents.push(this.createCode(child));
+            contents.push(this.renderCode(child));
         return new DTSSourceFile(node.name, contents);
     }
 
-    public createCode(node: ASTNode): DTSCode {
+    public renderCode(node: ASTNode): DTSCode {
         let code: DTSCode;
         switch (node.kind) {
         case ASTNodeKind.Var:
-            code = this.createVar(<VarNode>node);
+            code = this.renderVar(<VarNode>node);
             break;
         case ASTNodeKind.Enum:
-            code = this.createEnum(<EnumNode>node);
+            code = this.renderEnum(<EnumNode>node);
             break;
         case ASTNodeKind.Function:
-            code = this.createFunctionCode(<FunctionNode>node);
+            code = this.renderFunctionCode(<FunctionNode>node);
             break;
         case ASTNodeKind.Class:
-            code = this.createClass(<ClassNode>node);
+            code = this.renderClass(<ClassNode>node);
             break;
         case ASTNodeKind.Interface:
-            code = this.createInterface(<InterfaceNode>node);
+            code = this.renderInterface(<InterfaceNode>node);
             break;
         case ASTNodeKind.Namespace:
-            code = this.createNamespaceCode(<NamespaceNode>node);
+            code = this.renderNamespaceCode(<NamespaceNode>node);
             break;
         case ASTNodeKind.SourceFile:
-            code = this.craeteSourceFileCode(<SourceFileNode>node);
+            code = this.renderSourceFileCode(<SourceFileNode>node);
             break;
         case ASTNodeKind.Root:
-            code = this.createRootCode(<RootNode>node);
+            code = this.renderRootCode(<RootNode>node);
             break;
         default:
             throw new Error(
-                "can not create node:" +
+                "can not render node:" +
                         ASTUtil.instance.getString(node, 2),
             );
         }
@@ -287,8 +285,8 @@ export class DTSGenerator extends CodeGenerator {
         return code;
     }
 
-    public getCodeText(node: ASTNode) {
-        const code = this.createCode(node);
+    public renderCodeText(node: ASTNode) {
+        const code = this.renderCode(node);
         return code.renderCode(-1);
     }
 }

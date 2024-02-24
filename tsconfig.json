@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2016",
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "module": "commonjs",
     "rootDir": "./",
     "sourceMap": true,
@@ -11,19 +12,18 @@
     "strict": true,
     "skipLibCheck": true,
     "composite": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ],
-    },
+    "baseUrl": "."
   },
-
   "include": [
     "src/**/*.ts"
   ],
   "exclude": [
     "dist",
     "node_modules"
-  ]
+  ],
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  }
 }

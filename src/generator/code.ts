@@ -15,18 +15,18 @@ export interface StringOptions {
     suffix?: string;
 }
 
-export interface Code {
+export interface CodeRender {
     renderCode(depth?: number): string;
 }
 
 @Data
 export class Commentable {
-    constructor(protected comment?: Code) {}
+    constructor(protected comment?: CodeRender) {}
 }
 
 export interface Commentable {
-    getComment(): Code;
-    setComment(comment: Code): void;
+    getComment(): CodeRender;
+    setComment(comment: CodeRender): void;
 }
 
 export class CodeUtil {
@@ -56,10 +56,10 @@ export class CodeUtil {
     }
 }
 
-export class Statement extends Commentable implements Code {
+export class StatementRender extends Commentable implements CodeRender {
     constructor(
         protected items: string[],
-        comment?: Code,
+        comment?: CodeRender,
     ) {
         super(comment);
     }
@@ -82,14 +82,14 @@ export class Statement extends Commentable implements Code {
     }
 }
 
-export class CodeBlock extends Commentable implements Code {
+export class BlockRender extends Commentable implements CodeRender {
     protected startText: string = "";
     protected endText: string = "";
 
     constructor(
-        protected header: Statement,
-        protected contents: Code[],
-        comment?: Code,
+        protected header: StatementRender,
+        protected contents: CodeRender[],
+        comment?: CodeRender,
     ) {
         super(comment);
     }

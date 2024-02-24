@@ -6,10 +6,7 @@ import {
     ASTPtr,
     ClassNode,
     FunctionLikeNode,
-    MethodNode,
     ModuleLikeNode,
-    PropertyNode,
-    RootNode,
     VarLikeNode,
 } from "../ast/astNode";
 import {
@@ -23,35 +20,6 @@ import {
     UnionTypeNode,
 } from "../ast/astType";
 
-export class ASTNodeClassifier {
-    @SingletonProperty
-    public static readonly instance: ASTNodeClassifier;
-
-    public isFunctionLikeNode(node: ASTNode): node is FunctionLikeNode {
-        return (
-            node.kind === ASTNodeKind.Method ||
-            node.kind === ASTNodeKind.Function ||
-            node.kind === ASTNodeKind.Constructor
-        );
-    }
-
-    public isMethodNode(node: ASTNode): node is MethodNode {
-        return node.kind === ASTNodeKind.Method;
-    }
-
-    public isPropertyNode(node: ASTNode): node is PropertyNode {
-        return node.kind === ASTNodeKind.Property;
-    }
-
-    public isRootNode(node: ASTNode): node is RootNode {
-        return node.kind === ASTNodeKind.Root;
-    }
-
-    public isASTNodeArray(node: ASTNode | ASTNode[]): node is ASTNode[] {
-        return Array.isArray(node);
-    }
-}
-
 export class ASTNodeVisitor {
     @SingletonProperty
     public static readonly instance: ASTNodeVisitor;
@@ -63,7 +31,7 @@ export class ASTNodeVisitor {
     ): R {
         switch (node.kind) {
         case TypeNodeKind.Union:
-            (<UnionTypeNode>node).value.forEach((t) =>
+            (<UnionTypeNode>node).elements.forEach((t) =>
                 this.visitType(node, t, view),
             );
             break;
@@ -138,14 +106,12 @@ export class ASTUtil {
         return copy;
     }
 
-    public copyAST(node: ASTNode): ASTNode {
-        return this.deepCopyObj(node);
+    public isASTNodeArray(node: ASTNode | ASTNode[]): node is ASTNode[] {
+        return Array.isArray(node);
     }
 
-    public makeParent(node: ASTNode): void {
-        ASTNodeVisitor.instance.visitNode(undefined, node, (parent, child) => {
-            child.parent = parent;
-        });
+    public copyAST(node: ASTNode): ASTNode {
+        return this.deepCopyObj(node);
     }
 
     protected translateType(_parent: any, node: any) {
@@ -156,14 +122,14 @@ export class ASTUtil {
 
     public getString(node: ASTNode, space: number = 0): string {
         const copyNode = this.copyAST(node);
-        ASTNodeVisitor.instance.visitNode(undefined, copyNode, (_parent: any, child: any) => {
+        ASTNodeVisitor.instance.visitNode(null, copyNode, (_parent: any, child: any) => {
             // set type's kind to string
             switch (child.kind) {
             case ASTNodeKind.Var:
             case ASTNodeKind.Param:
             case ASTNodeKind.Property:
                 ASTNodeVisitor.instance.visitType(
-                    undefined,
+                    null,
                     (<VarLikeNode>child).type,
                     this.translateType,
                 );
@@ -171,8 +137,8 @@ export class ASTUtil {
             case ASTNodeKind.Function:
             case ASTNodeKind.Method:
                 ASTNodeVisitor.instance.visitType(
-                    undefined,
-                    (<FunctionLikeNode>child).returnType,
+                    null,
+                    (<FunctionLikeNode>child).returnType!,
                     this.translateType,
                 );
                 break;

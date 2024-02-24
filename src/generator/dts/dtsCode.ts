@@ -13,9 +13,10 @@ import {
     UnionTypeNode,
     ArrayTypeNode,
     TupleTypeNode,
+    LiteralTypeNode,
 } from "../../ast/astType";
 import { Translator } from "../../util/i18n/util";
-import { Code, CodeBlock, CodeCofig, CodeUtil, Statement } from "../code";
+import { CodeRender, BlockRender, CodeCofig, CodeUtil, StatementRender } from "../code";
 
 export type DTSCode = DTSBlock | DTSStatement;
 
@@ -35,7 +36,7 @@ export interface ClassLikeDefinition {
     extends: DTSType[];
 }
 
-export class DTSComment implements Code {
+export class DTSComment implements CodeRender {
     protected readonly startText: string = "/**";
     protected readonly endText: string = " */";
     protected readonly prefix: string = " * ";
@@ -71,7 +72,7 @@ export class DTSComment implements Code {
     }
 }
 
-export class DTSType implements Code {
+export class DTSType implements CodeRender {
     protected typeText: string;
 
     constructor(type?: TypeNode, typeParameterText: string = "") {
@@ -109,7 +110,7 @@ export class DTSType implements Code {
         return `${typeParameterText}(${parametersText}) => ${this.build(type.returnType)}`;
     }
 
-    public buildReference(type: TypeReferenceNode): string {
+    public buildTypeReference(type: TypeReferenceNode): string {
         const name = type.value;
         if (type.members)
             return `${name}<${type.members.map((t) => this.build(t)).join(", ")}>`;
@@ -117,7 +118,7 @@ export class DTSType implements Code {
     }
 
     public buildUnion(type: UnionTypeNode): string {
-        return type.value.map((t) => this.build(t)).join(" | ");
+        return type.elements.map((t) => this.build(t)).join(" | ");
     }
 
     public buildArray(type: ArrayTypeNode): string {
@@ -140,21 +141,21 @@ export class DTSType implements Code {
             return "any";
         switch (type.kind) {
         case TypeNodeKind.Basic:
-            return this.buildBasic(type);
+            return this.buildBasic(<BasicTypeNode>type);
         case TypeNodeKind.Literal:
-            return type.value.toString();
+            return (<LiteralTypeNode>type).value.toString();
         case TypeNodeKind.Function:
-            return this.buildFunction(type);
+            return this.buildFunction(<FunctionTypeNode>type);
         case TypeNodeKind.TypeReference:
-            return this.buildReference(type);
+            return this.buildTypeReference(<TypeReferenceNode>type);
         case TypeNodeKind.Union:
-            return this.buildUnion(type);
+            return this.buildUnion(<UnionTypeNode>type);
         case TypeNodeKind.Array:
-            return this.buildArray(type);
+            return this.buildArray(<ArrayTypeNode>type);
         case TypeNodeKind.Tuple:
-            return this.buildTuple(type);
+            return this.buildTuple(<TupleTypeNode>type);
         case TypeNodeKind.TypeLiteral:
-            return this.buildTypeLiteral(type);
+            return this.buildTypeLiteral(<TypeLiteralNode>type);
         default:
             return "any";
         }
@@ -165,7 +166,7 @@ export class DTSType implements Code {
     }
 }
 
-export class DTSStatement extends Statement {
+export class DTSStatement extends StatementRender {
     protected readonly suffix: string = ";";
 
     constructor(items: string[], comment?: DTSComment) {
@@ -230,7 +231,7 @@ export class DTSProperty extends DTSTypedDeclaration {
     }
 }
 
-export class DTSParameter implements Code {
+export class DTSParameter implements CodeRender {
     constructor(
         protected name: string,
         protected type: DTSType,
@@ -281,11 +282,11 @@ export class DTSMethod extends DTSTypedDeclaration {
     }
 }
 
-export class DTSBlock extends CodeBlock {
+export class DTSBlock extends BlockRender {
     protected readonly startText: string = " {";
     protected readonly endText: string = "}";
 
-    constructor(header: Statement, contents: DTSCode[], comment?: DTSComment) {
+    constructor(header: StatementRender, contents: DTSCode[], comment?: DTSComment) {
         super(header, contents, comment);
     }
 
@@ -302,7 +303,7 @@ export class DTSEnum extends DTSBlock {
         comment?: DTSComment,
     ) {
         super(
-            new Statement(["enum", name]),
+            new StatementRender(["enum", name]),
             [
                 ...values.map(
                     (v) =>
@@ -334,7 +335,7 @@ export class DTSClass extends DTSBlock {
             extendText = "extends " + extendText;
 
         super(
-            new Statement([
+            new StatementRender([
                 "class",
                 definition.name + definition.typeParameterText,
                 extendText,
@@ -355,7 +356,7 @@ export class DTSInterface extends DTSBlock {
             extendsText = "extends " + extendsText;
 
         super(
-            new Statement([
+            new StatementRender([
                 "interface",
                 definition.name + definition.typeParameterText,
                 extendsText,
@@ -368,7 +369,7 @@ export class DTSInterface extends DTSBlock {
 
 export class DTSNamespace extends DTSBlock {
     constructor(name: string, contents: DTSCode[], comment?: DTSComment) {
-        super(new Statement(["namespace", name]), contents, comment);
+        super(new StatementRender(["namespace", name]), contents, comment);
     }
 }
 
@@ -378,7 +379,7 @@ export class DTSSourceFile extends DTSBlock {
         contents: DTSCode[],
         comment?: DTSComment,
     ) {
-        super(new Statement([""]), contents, comment);
+        super(new StatementRender([""]), contents, comment);
     }
 
     public renderCode(_depth?: number | undefined): string {

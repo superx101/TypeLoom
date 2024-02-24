@@ -1,6 +1,6 @@
 {
   "kind": "Node[13] Root",
-  "name": "",
+  "name": "root",
   "children": [
     {
       "kind": "Node[12] SourceFile",
@@ -61,11 +61,11 @@
               "text"
             ]
           },
-          "const": true,
           "type": {
             "kind": "Type[0] Basic",
             "value": "TypeValue[1] dint"
-          }
+          },
+          "isConst": true
         },
         {
           "kind": "Node[8] Namespace",
@@ -86,11 +86,11 @@
                   "text"
                 ]
               },
-              "const": false,
               "type": {
                 "kind": "Type[0] Basic",
                 "value": "TypeValue[1] dint"
-              }
+              },
+              "isConst": false
             },
             {
               "kind": "Node[0] Var",
@@ -101,11 +101,11 @@
                   "text"
                 ]
               },
-              "const": false,
               "type": {
                 "kind": "Type[0] Basic",
                 "value": "TypeValue[1] dint"
-              }
+              },
+              "isConst": false
             },
             {
               "kind": "Node[0] Var",
@@ -116,11 +116,11 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[0] Basic",
                 "value": "TypeValue[1] dint"
-              }
+              },
+              "isConst": true
             }
           ]
         },
@@ -143,11 +143,11 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[0] Basic",
                 "value": "TypeValue[1] dint"
-              }
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -158,11 +158,11 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[0] Basic",
                 "value": "TypeValue[2] dfloat"
-              }
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -173,11 +173,11 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[1] Literal",
                 "value": "\"literal\""
-              }
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -188,7 +188,6 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[2] Function",
                 "parameters": [],
@@ -196,7 +195,8 @@
                   "kind": 0,
                   "value": 4
                 }
-              }
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -207,7 +207,6 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[2] Function",
                 "parameters": [
@@ -224,7 +223,8 @@
                   "kind": 0,
                   "value": 4
                 }
-              }
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -235,7 +235,6 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[2] Function",
                 "parameters": [
@@ -260,7 +259,8 @@
                   "kind": 0,
                   "value": 4
                 }
-              }
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -271,7 +271,6 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[2] Function",
                 "parameters": [
@@ -292,7 +291,8 @@
                   "kind": 0,
                   "value": 4
                 }
-              }
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -303,20 +303,20 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[2] Function",
                 "parameters": [],
+                "returnType": {
+                  "kind": 6,
+                  "value": "T"
+                },
                 "typeParameters": [
                   {
                     "name": "T"
                   }
-                ],
-                "returnType": {
-                  "kind": 6,
-                  "value": "T"
-                }
-              }
+                ]
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -327,10 +327,13 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[2] Function",
                 "parameters": [],
+                "returnType": {
+                  "kind": 6,
+                  "value": "T"
+                },
                 "typeParameters": [
                   {
                     "name": "T",
@@ -342,12 +345,9 @@
                   {
                     "name": "U"
                   }
-                ],
-                "returnType": {
-                  "kind": 6,
-                  "value": "T"
-                }
-              }
+                ]
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -358,7 +358,6 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[7] TypeLiteral",
                 "members": [
@@ -379,7 +378,8 @@
                     "optional": false
                   }
                 ]
-              }
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -390,14 +390,14 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[4] Array",
                 "elementType": {
                   "kind": 0,
                   "value": 1
                 }
-              }
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -408,7 +408,6 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[4] Array",
                 "elementType": {
@@ -418,7 +417,8 @@
                     "value": 1
                   }
                 }
-              }
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -429,7 +429,6 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[5] Tuple",
                 "elements": [
@@ -442,7 +441,8 @@
                     "value": 1
                   }
                 ]
-              }
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -453,7 +453,6 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[4] Array",
                 "elementType": {
@@ -469,7 +468,8 @@
                     }
                   ]
                 }
-              }
+              },
+              "isConst": true
             },
             {
               "kind": "Node[0] Var",
@@ -480,10 +480,9 @@
                   "text"
                 ]
               },
-              "const": true,
               "type": {
                 "kind": "Type[3] Union",
-                "value": [
+                "elements": [
                   {
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
@@ -493,7 +492,8 @@
                     "value": "TypeValue[3] dstring"
                   }
                 ]
-              }
+              },
+              "isConst": true
             }
           ]
         },
@@ -516,11 +516,6 @@
                   "text"
                 ]
               },
-              "typeParameters": [
-                {
-                  "name": "T"
-                }
-              ],
               "properties": [
                 {
                   "kind": "Node[4] Property",
@@ -535,13 +530,17 @@
                     "kind": "Type[6] TypeReference",
                     "value": "T"
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 }
               ],
               "methods": [],
-              "extends": []
+              "extends": [],
+              "typeParameters": [
+                {
+                  "name": "T"
+                }
+              ]
             },
             {
               "kind": "Node[2] Function",
@@ -558,8 +557,7 @@
               "returnType": {
                 "kind": "Type[0] Basic",
                 "value": "TypeValue[1] dint"
-              },
-              "async": false
+              }
             },
             {
               "kind": "Node[2] Function",
@@ -576,18 +574,23 @@
                 {
                   "kind": "Node[1] Param",
                   "name": "p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
                   "type": {
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "optional": false
+                  "isOptional": false
                 }
               ],
               "returnType": {
                 "kind": "Type[0] Basic",
                 "value": "TypeValue[4] dvoid"
-              },
-              "async": false
+              }
             },
             {
               "kind": "Node[2] Function",
@@ -604,27 +607,38 @@
                 {
                   "kind": "Node[1] Param",
                   "name": "p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
                   "type": {
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "optional": false
+                  "isOptional": false
                 },
                 {
                   "kind": "Node[1] Param",
                   "name": "p2",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
                   "type": {
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[0] dbool"
                   },
-                  "optional": false
+                  "isOptional": false
                 }
               ],
               "returnType": {
                 "kind": "Type[0] Basic",
                 "value": "TypeValue[4] dvoid"
-              },
-              "async": false
+              }
             },
             {
               "kind": "Node[2] Function",
@@ -641,6 +655,12 @@
                 {
                   "kind": "Node[1] Param",
                   "name": "p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
                   "type": {
                     "kind": "Type[2] Function",
                     "parameters": [],
@@ -649,14 +669,13 @@
                       "value": 1
                     }
                   },
-                  "optional": false
+                  "isOptional": false
                 }
               ],
               "returnType": {
                 "kind": "Type[0] Basic",
                 "value": "TypeValue[4] dvoid"
-              },
-              "async": false
+              }
             },
             {
               "kind": "Node[2] Function",
@@ -669,17 +688,16 @@
                   "returns"
                 ]
               },
-              "typeParameters": [
-                {
-                  "name": "T"
-                }
-              ],
               "parameters": [],
               "returnType": {
                 "kind": "Type[6] TypeReference",
                 "value": "T"
               },
-              "async": false
+              "typeParameters": [
+                {
+                  "name": "T"
+                }
+              ]
             },
             {
               "kind": "Node[2] Function",
@@ -692,6 +710,11 @@
                   "returns"
                 ]
               },
+              "parameters": [],
+              "returnType": {
+                "kind": "Type[6] TypeReference",
+                "value": "T"
+              },
               "typeParameters": [
                 {
                   "name": "T",
@@ -703,13 +726,7 @@
                 {
                   "name": "U"
                 }
-              ],
-              "parameters": [],
-              "returnType": {
-                "kind": "Type[6] TypeReference",
-                "value": "T"
-              },
-              "async": false
+              ]
             },
             {
               "kind": "Node[2] Function",
@@ -726,6 +743,12 @@
                 {
                   "kind": "Node[1] Param",
                   "name": "p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
                   "type": {
                     "kind": "Type[7] TypeLiteral",
                     "members": [
@@ -747,14 +770,13 @@
                       }
                     ]
                   },
-                  "optional": false
+                  "isOptional": false
                 }
               ],
               "returnType": {
                 "kind": "Type[0] Basic",
                 "value": "TypeValue[4] dvoid"
-              },
-              "async": false
+              }
             },
             {
               "kind": "Node[2] Function",
@@ -771,24 +793,29 @@
                 {
                   "kind": "Node[1] Param",
                   "name": "p1",
+                  "docFlags": {
+                    "enable": true,
+                    "flags": [
+                      "text"
+                    ]
+                  },
                   "type": {
                     "kind": "Type[6] TypeReference",
+                    "value": "Interface1",
                     "members": [
                       {
                         "kind": "Type[0] Basic",
                         "value": "TypeValue[1] dint"
                       }
-                    ],
-                    "value": "Interface1"
+                    ]
                   },
-                  "optional": false
+                  "isOptional": false
                 }
               ],
               "returnType": {
                 "kind": "Type[0] Basic",
                 "value": "TypeValue[4] dvoid"
-              },
-              "async": false
+              }
             }
           ]
         },
@@ -825,9 +852,8 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 },
                 {
                   "kind": "Node[4] Property",
@@ -842,9 +868,8 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": true
+                  "isOptional": true,
+                  "modifier": []
                 },
                 {
                   "kind": "Node[4] Property",
@@ -859,9 +884,10 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "readonly": true,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": [
+                    1
+                  ]
                 },
                 {
                   "kind": "Node[4] Property",
@@ -880,9 +906,8 @@
                       "value": 1
                     }
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 },
                 {
                   "kind": "Node[4] Property",
@@ -905,19 +930,18 @@
                         "optional": false
                       }
                     ],
+                    "returnType": {
+                      "kind": 0,
+                      "value": 1
+                    },
                     "typeParameters": [
                       {
                         "name": "T"
                       }
-                    ],
-                    "returnType": {
-                      "kind": 0,
-                      "value": 1
-                    }
+                    ]
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 },
                 {
                   "kind": "Node[4] Property",
@@ -958,9 +982,8 @@
                       }
                     ]
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 }
               ],
               "methods": [],
@@ -1002,9 +1025,8 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 }
               ],
               "methods": [],
@@ -1033,9 +1055,8 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 }
               ],
               "methods": [],
@@ -1050,11 +1071,6 @@
                   "text"
                 ]
               },
-              "typeParameters": [
-                {
-                  "name": "T"
-                }
-              ],
               "properties": [
                 {
                   "kind": "Node[4] Property",
@@ -1069,13 +1085,17 @@
                     "kind": "Type[6] TypeReference",
                     "value": "T"
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 }
               ],
               "methods": [],
-              "extends": []
+              "extends": [],
+              "typeParameters": [
+                {
+                  "name": "T"
+                }
+              ]
             },
             {
               "kind": "Node[9] Interface",
@@ -1086,14 +1106,14 @@
                   "text"
                 ]
               },
+              "properties": [],
+              "methods": [],
+              "extends": [],
               "typeParameters": [
                 {
                   "name": "T"
                 }
-              ],
-              "properties": [],
-              "methods": [],
-              "extends": []
+              ]
             }
           ]
         },
@@ -1142,7 +1162,7 @@
                   "properties": [],
                   "methods": [],
                   "extends": [],
-                  "implements": []
+                  "classImplements": []
                 },
                 {
                   "kind": "Node[3] Class",
@@ -1153,15 +1173,15 @@
                       "text"
                     ]
                   },
+                  "properties": [],
+                  "methods": [],
+                  "extends": [],
                   "typeParameters": [
                     {
                       "name": "T"
                     }
                   ],
-                  "properties": [],
-                  "methods": [],
-                  "extends": [],
-                  "implements": []
+                  "classImplements": []
                 },
                 {
                   "kind": "Node[9] Interface",
@@ -1185,14 +1205,14 @@
                       "text"
                     ]
                   },
+                  "properties": [],
+                  "methods": [],
+                  "extends": [],
                   "typeParameters": [
                     {
                       "name": "T"
                     }
-                  ],
-                  "properties": [],
-                  "methods": [],
-                  "extends": []
+                  ]
                 }
               ]
             },
@@ -1219,9 +1239,8 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 },
                 {
                   "kind": "Node[4] Property",
@@ -1236,9 +1255,10 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "readonly": true,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": [
+                    1
+                  ]
                 },
                 {
                   "kind": "Node[4] Property",
@@ -1253,9 +1273,10 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": true,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": [
+                    2
+                  ]
                 },
                 {
                   "kind": "Node[4] Property",
@@ -1270,9 +1291,11 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": true,
-                  "readonly": true,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": [
+                    2,
+                    1
+                  ]
                 },
                 {
                   "kind": "Node[4] Property",
@@ -1291,9 +1314,8 @@
                       "value": 1
                     }
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 },
                 {
                   "kind": "Node[4] Property",
@@ -1312,9 +1334,10 @@
                       "value": 1
                     }
                   },
-                  "static": false,
-                  "readonly": true,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": [
+                    1
+                  ]
                 },
                 {
                   "kind": "Node[4] Property",
@@ -1333,9 +1356,10 @@
                       "value": 1
                     }
                   },
-                  "static": true,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": [
+                    2
+                  ]
                 },
                 {
                   "kind": "Node[4] Property",
@@ -1354,9 +1378,11 @@
                       "value": 1
                     }
                   },
-                  "static": true,
-                  "readonly": true,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": [
+                    2,
+                    1
+                  ]
                 },
                 {
                   "kind": "Node[4] Property",
@@ -1379,19 +1405,18 @@
                         "optional": false
                       }
                     ],
+                    "returnType": {
+                      "kind": 0,
+                      "value": 1
+                    },
                     "typeParameters": [
                       {
                         "name": "T"
                       }
-                    ],
-                    "returnType": {
-                      "kind": 0,
-                      "value": 1
-                    }
+                    ]
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 }
               ],
               "methods": [
@@ -1409,11 +1434,17 @@
                     {
                       "kind": "Node[1] Param",
                       "name": "p1",
+                      "docFlags": {
+                        "enable": true,
+                        "flags": [
+                          "text"
+                        ]
+                      },
                       "type": {
                         "kind": "Type[0] Basic",
                         "value": "TypeValue[1] dint"
                       },
-                      "optional": false
+                      "isOptional": false
                     }
                   ]
                 },
@@ -1433,8 +1464,7 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "async": false
+                  "modifier": []
                 },
                 {
                   "kind": "Node[5] Method",
@@ -1452,8 +1482,9 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": true,
-                  "async": false
+                  "modifier": [
+                    2
+                  ]
                 },
                 {
                   "kind": "Node[5] Method",
@@ -1466,22 +1497,21 @@
                       "returns"
                     ]
                   },
-                  "typeParameters": [
-                    {
-                      "name": "T"
-                    }
-                  ],
                   "parameters": [],
                   "returnType": {
                     "kind": "Type[6] TypeReference",
                     "value": "T"
                   },
-                  "static": false,
-                  "async": false
+                  "typeParameters": [
+                    {
+                      "name": "T"
+                    }
+                  ],
+                  "modifier": []
                 }
               ],
               "extends": [],
-              "implements": []
+              "classImplements": []
             },
             {
               "kind": "Node[3] Class",
@@ -1506,9 +1536,8 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 }
               ],
               "methods": [],
@@ -1518,7 +1547,7 @@
                   "value": "Class1"
                 }
               ],
-              "implements": []
+              "classImplements": []
             },
             {
               "kind": "Node[3] Class",
@@ -1537,7 +1566,7 @@
                   "value": "other.Class1"
                 }
               ],
-              "implements": [
+              "classImplements": [
                 {
                   "kind": 6,
                   "value": "other.Interface1"
@@ -1567,9 +1596,8 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 },
                 {
                   "kind": "Node[4] Property",
@@ -1584,14 +1612,13 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 }
               ],
               "methods": [],
               "extends": [],
-              "implements": [
+              "classImplements": [
                 {
                   "kind": 6,
                   "value": "other.Interface1"
@@ -1611,11 +1638,6 @@
                   "text"
                 ]
               },
-              "typeParameters": [
-                {
-                  "name": "T"
-                }
-              ],
               "properties": [
                 {
                   "kind": "Node[4] Property",
@@ -1630,14 +1652,18 @@
                     "kind": "Type[6] TypeReference",
                     "value": "T"
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 }
               ],
               "methods": [],
               "extends": [],
-              "implements": []
+              "typeParameters": [
+                {
+                  "name": "T"
+                }
+              ],
+              "classImplements": []
             },
             {
               "kind": "Node[3] Class",
@@ -1648,6 +1674,20 @@
                   "text"
                 ]
               },
+              "properties": [],
+              "methods": [],
+              "extends": [
+                {
+                  "kind": 6,
+                  "value": "other.Class2",
+                  "members": [
+                    {
+                      "kind": 6,
+                      "value": "T"
+                    }
+                  ]
+                }
+              ],
               "typeParameters": [
                 {
                   "name": "T"
@@ -1656,21 +1696,7 @@
                   "name": "U"
                 }
               ],
-              "properties": [],
-              "methods": [],
-              "extends": [
-                {
-                  "kind": 6,
-                  "members": [
-                    {
-                      "kind": 6,
-                      "value": "T"
-                    }
-                  ],
-                  "value": "other.Class2"
-                }
-              ],
-              "implements": []
+              "classImplements": []
             },
             {
               "kind": "Node[3] Class",
@@ -1681,35 +1707,35 @@
                   "text"
                 ]
               },
+              "properties": [],
+              "methods": [],
+              "extends": [],
               "typeParameters": [
                 {
                   "name": "T",
                   "constraint": {
                     "kind": 6,
+                    "value": "Class6",
                     "members": [
                       {
                         "kind": 6,
+                        "value": "Class5",
                         "members": [
                           {
                             "kind": 0,
                             "value": 1
                           }
-                        ],
-                        "value": "Class5"
+                        ]
                       },
                       {
                         "kind": 0,
                         "value": 3
                       }
-                    ],
-                    "value": "Class6"
+                    ]
                   }
                 }
               ],
-              "properties": [],
-              "methods": [],
-              "extends": [],
-              "implements": []
+              "classImplements": []
             },
             {
               "kind": "Node[3] Class",
@@ -1725,32 +1751,32 @@
               "extends": [
                 {
                   "kind": 6,
+                  "value": "Class7",
                   "members": [
                     {
                       "kind": 6,
+                      "value": "Class6",
                       "members": [
                         {
                           "kind": 6,
+                          "value": "Class5",
                           "members": [
                             {
                               "kind": 0,
                               "value": 1
                             }
-                          ],
-                          "value": "Class5"
+                          ]
                         },
                         {
                           "kind": 0,
                           "value": 3
                         }
-                      ],
-                      "value": "Class6"
+                      ]
                     }
-                  ],
-                  "value": "Class7"
+                  ]
                 }
               ],
-              "implements": []
+              "classImplements": []
             },
             {
               "kind": "Node[3] Class",
@@ -1761,26 +1787,26 @@
                   "text"
                 ]
               },
-              "typeParameters": [
-                {
-                  "name": "T"
-                }
-              ],
               "properties": [],
               "methods": [],
               "extends": [
                 {
                   "kind": 6,
+                  "value": "Class5",
                   "members": [
                     {
                       "kind": 6,
                       "value": "T"
                     }
-                  ],
-                  "value": "Class5"
+                  ]
                 }
               ],
-              "implements": []
+              "typeParameters": [
+                {
+                  "name": "T"
+                }
+              ],
+              "classImplements": []
             },
             {
               "kind": "Node[3] Class",
@@ -1791,28 +1817,28 @@
                   "text"
                 ]
               },
+              "properties": [],
+              "methods": [],
+              "extends": [],
               "typeParameters": [
                 {
                   "name": "T"
                 }
               ],
-              "properties": [],
-              "methods": [],
-              "extends": [],
-              "implements": [
+              "classImplements": [
                 {
                   "kind": 6,
                   "value": "other.Interface1"
                 },
                 {
                   "kind": 6,
+                  "value": "other.Interface2",
                   "members": [
                     {
                       "kind": 6,
                       "value": "T"
                     }
-                  ],
-                  "value": "other.Interface2"
+                  ]
                 }
               ]
             }
@@ -1880,7 +1906,7 @@
         },
         {
           "kind": "Node[8] Namespace",
-          "name": "docFlagsTestNamespace",
+          "name": "exampleNamespace1",
           "docFlags": {
             "enable": true,
             "flags": [
@@ -1925,9 +1951,8 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 },
                 {
                   "kind": "Node[4] Property",
@@ -1957,9 +1982,8 @@
                       "value": 1
                     }
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 }
               ],
               "methods": [],
@@ -1988,9 +2012,8 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "readonly": false,
-                  "optional": false
+                  "isOptional": false,
+                  "modifier": []
                 }
               ],
               "methods": [
@@ -2008,20 +2031,32 @@
                     {
                       "kind": "Node[1] Param",
                       "name": "p1",
+                      "docFlags": {
+                        "enable": true,
+                        "flags": [
+                          "text"
+                        ]
+                      },
                       "type": {
                         "kind": "Type[0] Basic",
                         "value": "TypeValue[1] dint"
                       },
-                      "optional": false
+                      "isOptional": false
                     },
                     {
                       "kind": "Node[1] Param",
                       "name": "p2",
+                      "docFlags": {
+                        "enable": true,
+                        "flags": [
+                          "text"
+                        ]
+                      },
                       "type": {
                         "kind": "Type[0] Basic",
                         "value": "TypeValue[0] dbool"
                       },
-                      "optional": false
+                      "isOptional": false
                     }
                   ]
                 },
@@ -2041,8 +2076,7 @@
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "async": false
+                  "modifier": []
                 },
                 {
                   "kind": "Node[5] Method",
@@ -2059,28 +2093,39 @@
                     {
                       "kind": "Node[1] Param",
                       "name": "p1",
+                      "docFlags": {
+                        "enable": true,
+                        "flags": [
+                          "text"
+                        ]
+                      },
                       "type": {
                         "kind": "Type[0] Basic",
                         "value": "TypeValue[1] dint"
                       },
-                      "optional": false
+                      "isOptional": false
                     },
                     {
                       "kind": "Node[1] Param",
                       "name": "p2",
+                      "docFlags": {
+                        "enable": true,
+                        "flags": [
+                          "text"
+                        ]
+                      },
                       "type": {
                         "kind": "Type[0] Basic",
                         "value": "TypeValue[3] dstring"
                       },
-                      "optional": false
+                      "isOptional": false
                     }
                   ],
                   "returnType": {
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "async": false
+                  "modifier": []
                 },
                 {
                   "kind": "Node[5] Method",
@@ -2099,32 +2144,43 @@
                     {
                       "kind": "Node[1] Param",
                       "name": "p1",
+                      "docFlags": {
+                        "enable": true,
+                        "flags": [
+                          "text"
+                        ]
+                      },
                       "type": {
                         "kind": "Type[0] Basic",
                         "value": "TypeValue[1] dint"
                       },
-                      "optional": false
+                      "isOptional": false
                     },
                     {
                       "kind": "Node[1] Param",
                       "name": "p2",
+                      "docFlags": {
+                        "enable": true,
+                        "flags": [
+                          "text"
+                        ]
+                      },
                       "type": {
                         "kind": "Type[0] Basic",
                         "value": "TypeValue[3] dstring"
                       },
-                      "optional": false
+                      "isOptional": false
                     }
                   ],
                   "returnType": {
                     "kind": "Type[0] Basic",
                     "value": "TypeValue[1] dint"
                   },
-                  "static": false,
-                  "async": false
+                  "modifier": []
                 }
               ],
               "extends": [],
-              "implements": []
+              "classImplements": []
             }
           ]
         }

@@ -1,9 +1,8 @@
 import { I18nUtil } from "./util";
 
-import { ASTNode } from "../../ast/astNode";
+import { ASTNode, FunctionLikeNode } from "../../ast/astNode";
 import { DocFlagKind, WrongFlagError } from "../../ast/docFlag";
-import { CodeCofig } from "../../codeGenerator/code";
-import { ASTNodeClassifier, ASTNodeVisitor } from "../astUtil";
+import { CodeCofig } from "../../generator/code";
 import { SingletonProperty } from "../classDecorator";
 
 export interface FlagKeysStrategy {
@@ -38,7 +37,7 @@ export class ParamFlagStrategy implements FlagKeysStrategy {
     public static readonly instance: FlagKeysStrategy;
 
     public getKeys(node: ASTNode, _flagName: string): string[] {
-        if (!ASTNodeClassifier.instance.isFunctionLikeNode(node))
+        if (!(node instanceof FunctionLikeNode))
             throw new WrongFlagError(
                 `'${node.name}' is not functionLikeNode, do not allow use 'params' tag`,
             );
